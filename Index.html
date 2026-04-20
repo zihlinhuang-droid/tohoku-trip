@@ -1,0 +1,1865 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#fbf8f5" />
+<title>日本東北・北海道 9 天行程</title>
+<style>
+/* =========================================================
+   東北春天旅行手帳 — Mobile First
+   主色：米白、櫻花粉、霧灰粉、柔和灰藍、淡霧綠
+   ========================================================= */
+
+:root {
+  --color-bg: #fbf8f5;
+  --color-bg-soft: #f4ecea;
+  --color-card: #ffffff;
+  --color-sakura: #e8c3c6;
+  --color-sakura-soft: #f6e4e5;
+  --color-blue: #b9c7d2;
+  --color-blue-soft: #e6ecf0;
+  --color-green: #cbd6c8;
+  --color-green-soft: #e6ede2;
+  --color-text: #3a3538;
+  --color-text-soft: #6e6669;
+  --color-text-light: #9a9295;
+  --color-border: #ece4e2;
+  --color-accent: #b8848a;
+
+  --shadow-card: 0 2px 10px rgba(90, 70, 75, 0.05);
+  --shadow-soft: 0 6px 24px rgba(90, 70, 75, 0.08);
+
+  --radius: 14px;
+  --radius-sm: 10px;
+
+  --max-width: 720px;
+  --font-sans: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", "Hiragino Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Noto Serif TC", "Songti TC", "PMingLiU", Georgia, serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.8;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 20px; }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  padding: 72px 20px 60px;
+  min-height: 56vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 20% 0%, var(--color-sakura-soft) 0%, transparent 55%),
+    radial-gradient(ellipse at 90% 100%, var(--color-green-soft) 0%, transparent 55%),
+    var(--color-bg);
+}
+/* 真實背景照 */
+.hero__bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  /* 色溫輕微偏暖，與粉色系更契合 */
+  filter: saturate(0.9);
+}
+/* 柔和的米白 + 櫻粉 + 霧白 漸層覆蓋，保留圖片氛圍但讓文字清楚 */
+.hero__overlay {
+  position: absolute; inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(255, 253, 250, 0.55) 0%, rgba(255, 253, 250, 0.25) 45%, rgba(255, 253, 250, 0) 70%),
+    linear-gradient(180deg, rgba(251, 248, 245, 0.55) 0%, rgba(246, 228, 229, 0.38) 48%, rgba(251, 248, 245, 0.78) 100%);
+}
+/* 沒有圖片時，維持原本淡淡的點狀花瓣背景 */
+.hero:not(.has-bg)::before {
+  content: "";
+  position: absolute; inset: 0;
+  z-index: 1;
+  background-image:
+    radial-gradient(circle at 15% 30%, rgba(232, 195, 198, 0.22) 0, rgba(232, 195, 198, 0) 2px),
+    radial-gradient(circle at 70% 60%, rgba(232, 195, 198, 0.18) 0, rgba(232, 195, 198, 0) 2px),
+    radial-gradient(circle at 40% 80%, rgba(185, 199, 210, 0.18) 0, rgba(185, 199, 210, 0) 2px);
+  background-size: 42px 42px, 56px 56px, 72px 72px;
+  pointer-events: none;
+}
+.hero > .container { position: relative; z-index: 2; }
+.hero__label { display: inline-block; font-size: 12px; letter-spacing: 0.32em; color: var(--color-accent); margin-bottom: 14px; }
+.hero__title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.9rem, 6.2vw, 2.7rem);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--color-text);
+  margin-bottom: 14px;
+  line-height: 1.35;
+  text-shadow: 0 1px 2px rgba(255, 253, 250, 0.65);
+}
+.hero__subtitle {
+  font-size: 15px;
+  color: var(--color-text-soft);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.85;
+  text-shadow: 0 1px 2px rgba(255, 253, 250, 0.7);
+}
+.hero__meta {
+  margin-top: 18px;
+  font-size: 13px;
+  color: var(--color-text-light);
+  letter-spacing: 0.08em;
+  text-shadow: 0 1px 2px rgba(255, 253, 250, 0.7);
+}
+.hero.has-bg .hero__subtitle { color: var(--color-text); }
+.hero.has-bg .hero__meta { color: var(--color-text-soft); }
+
+/* ---------- Day 導覽 ---------- */
+.day-nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(251, 248, 245, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e1d4d1;
+  box-shadow: 0 1px 0 rgba(90, 70, 75, 0.04);
+}
+.day-nav__inner {
+  display: flex; gap: 8px;
+  padding: 12px 20px;
+  overflow-x: auto; overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.day-nav__inner::-webkit-scrollbar { display: none; }
+
+.day-nav__btn {
+  flex: 0 0 auto;
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #5a5053;                       /* 比原本略深，不再 faded */
+  background: #ffffff;                  /* 非 active 也給明確底色 */
+  border: 1px solid #dcc9c8;            /* 粉霧邊框，比原本更清楚 */
+  transition: all 0.22s ease;
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+  min-height: 40px;
+  box-shadow: 0 1px 3px rgba(90, 70, 75, 0.04);
+}
+.day-nav__btn:hover,
+.day-nav__btn:active {
+  color: var(--color-accent);
+  border-color: var(--color-sakura);
+  background: var(--color-sakura-soft);
+}
+.day-nav__btn.is-active {
+  color: #fff;
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(184, 132, 138, 0.28);
+  transform: translateY(-1px);
+}
+
+/* ---------- Day 大區塊 — 章節容器 ---------- */
+.day {
+  position: relative;
+  padding: 48px 20px 56px;
+}
+.day:nth-child(even) { background: var(--color-bg-soft); }
+.day__inner { max-width: var(--max-width); margin: 0 auto; }
+
+/* 章節之間的微小分隔：頂端浮現一段淡淡的短線 */
+.day + .day::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-sakura), transparent);
+  opacity: 0.7;
+}
+
+/* ---------- Day Header — 章節開場 ---------- */
+.day__header {
+  position: relative;
+  margin-bottom: 22px;
+  padding-bottom: 20px;
+}
+/* header 下方小色塊短線，和下面的 module 區分開 */
+.day__header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--color-sakura);
+  opacity: 0.65;
+  border-radius: 2px;
+}
+.day__tag {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  color: var(--color-accent);
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+.day__date {
+  display: block;
+  font-size: 12.5px;
+  color: var(--color-text-light);
+  letter-spacing: 0.2em;
+  margin-bottom: 12px;
+}
+.day__title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.55rem, 4.8vw, 1.9rem);
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.day__subtitle {
+  color: var(--color-text-soft);
+  font-size: 14.5px;
+  line-height: 1.75;
+}
+
+/* ---------- Day Module — 把當天所有內容收進一張章節卡片 ---------- */
+.day__module {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 14px 14px 22px;
+  box-shadow: 0 2px 16px rgba(90, 70, 75, 0.05);
+}
+.day:nth-child(even) .day__module {
+  background: var(--color-card);
+  border-color: var(--color-border);
+}
+
+/* ---------- Day 大圖封面 ---------- */
+.day__cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, var(--color-sakura-soft) 0%, var(--color-blue-soft) 60%, var(--color-green-soft) 100%);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 18px;
+}
+.day__cover img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.day__cover-placeholder {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 6px;
+  color: var(--color-text-light);
+  font-size: 13px; letter-spacing: 0.18em;
+}
+.day__cover-placeholder::before {
+  content: "✿";
+  font-size: 28px;
+  color: var(--color-sakura);
+  opacity: 0.85;
+}
+
+/* ---------- Day 飯店連結 ---------- */
+.day__hotel-wrap { margin-bottom: 22px; }
+.day__hotel-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 15px;
+  font-size: 13.5px;
+  color: var(--color-text-soft);
+  background: var(--color-blue-soft);
+  border: 1px solid #d8e0e6;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+  min-height: 38px;
+  line-height: 1.4;
+}
+.day__hotel-link::before { content: "🛏"; font-size: 13px; }
+.day__hotel-link.is-link:hover,
+.day__hotel-link.is-link:active {
+  background: #d5e0e6;
+  color: var(--color-text);
+}
+.day__hotel-link.is-link::after {
+  content: "↗";
+  font-size: 11px;
+  color: var(--color-text-light);
+  margin-left: 2px;
+}
+
+/* ---------- Day 次級分頁按鈕 — 控制面板感 ---------- */
+.day-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  padding: 5px;
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  margin-bottom: 22px;
+  /* 內凹質感：像被按進 module 的控制條 */
+  box-shadow: inset 0 1px 2px rgba(90, 70, 75, 0.06);
+}
+/* 偶數日 module 仍是白底，所以不再切換 */
+.day:nth-child(even) .day-tabs { background: var(--color-bg-soft); }
+.day-tab {
+  padding: 11px 4px;
+  border-radius: 9px;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  color: var(--color-text-soft);
+  transition: all 0.22s ease;
+  min-height: 44px;
+  font-weight: 500;
+}
+.day-tab:hover, .day-tab:active { color: var(--color-accent); }
+.day-tab.is-active {
+  background: var(--color-card);
+  color: var(--color-accent);
+  font-weight: 600;
+  /* 比原本明確：浮起的卡片 + 細的 accent 環，但仍維持柔和色調 */
+  box-shadow:
+    0 2px 6px rgba(90, 70, 75, 0.08),
+    inset 0 0 0 1px rgba(184, 132, 138, 0.3);
+}
+
+/* ---------- 分頁內容面板 ---------- */
+.day-panel { animation: panelFade 0.25s ease; }
+.day-panel[hidden] { display: none !important; }
+@keyframes panelFade {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- 區塊標題（保留但樣式稍微簡化） ---------- */
+.section-heading { display: flex; align-items: baseline; gap: 10px; margin: 4px 0 16px; }
+.section-heading__num { font-family: var(--font-serif); font-size: 12px; color: var(--color-accent); letter-spacing: 0.25em; }
+.section-heading__title { font-size: 15px; font-weight: 600; color: var(--color-text); letter-spacing: 0.05em; }
+.section-heading__line { flex: 1; height: 1px; background: var(--color-border); }
+
+/* ---------- 行程時間軸 ---------- */
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-left: 22px;
+}
+/* 左側淡粉色垂直引導線（上下漸隱，不搶戲） */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 14px;
+  bottom: 14px;
+  width: 1px;
+  background: linear-gradient(180deg, transparent 0%, var(--color-sakura) 10%, var(--color-sakura) 90%, transparent 100%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.trip-card {
+  position: relative;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 16px 18px 16px;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.trip-card:active { transform: scale(0.995); }
+
+/* 與時間軸相連的小圓點 */
+.trip-card::before {
+  content: "";
+  position: absolute;
+  left: -21px;
+  top: 22px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-card);
+  border: 1.5px solid var(--color-sakura);
+}
+
+/* 類型徽章：小巧、次要，作為輔助資訊停在右上 */
+.badge {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  padding: 2px 9px;
+  border-radius: 999px;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+.badge--fixed    { color: #8a6f72; background: var(--color-sakura-soft); border: 1px solid var(--color-sakura); }
+.badge--optional { color: #6a7c8b; background: var(--color-blue-soft);   border: 1px solid #c9d5df; }
+.badge--backup   { color: #6f8372; background: var(--color-green-soft);  border: 1px solid #c2d0bd; }
+
+/* 卡片最上方一列：左序號、右徽章 */
+.trip-card__topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  min-height: 18px;
+}
+
+/* 序號 01 / 02 / 03 — 低調但清晰 */
+.trip-card__seq {
+  font-family: var(--font-serif);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  color: var(--color-accent);
+  opacity: 0.85;
+}
+
+/* 時間：獨立一行、字級稍大、無 pill 背景以強調順序感 */
+.trip-card__time {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+  padding: 0;
+  background: transparent;
+}
+
+/* 地點名稱：主角 */
+.trip-card__name {
+  display: block;
+  font-size: 16.5px;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.55;
+  margin-top: 2px;
+}
+
+/* 舊的 trip-card__head 樣式保留相容，新結構已不使用 */
+.trip-card__head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-bottom: 10px; }
+
+/* 可點擊的地點名稱（通用） */
+.place-link {
+  color: var(--color-text);
+  border-bottom: 1px dashed var(--color-sakura);
+  padding-bottom: 1px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.place-link:hover, .place-link:active {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+.place-link::after {
+  content: " ↗";
+  font-size: 0.78em;
+  color: var(--color-text-light);
+  letter-spacing: 0;
+}
+
+.trip-card__desc { color: var(--color-text); font-size: 14.5px; margin-top: 8px; line-height: 1.85; }
+.trip-card__note { font-size: 13.5px; color: var(--color-text-soft); background: #faf6f3; border-left: 3px solid var(--color-sakura); padding: 10px 14px; border-radius: var(--radius-sm); margin-top: 12px; line-height: 1.8; }
+.trip-card__note::before { content: "注意事項"; display: inline-block; color: var(--color-accent); font-weight: 600; font-size: 12px; margin-right: 6px; letter-spacing: 0.05em; }
+
+.trip-card__actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.btn-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; padding: 9px 14px; border-radius: 999px; border: 1px solid var(--color-border); background: #fff; color: var(--color-text-soft); transition: all 0.2s ease; min-height: 38px; }
+.btn-chip--map:hover, .btn-chip--map:active { color: var(--color-accent); border-color: var(--color-sakura); background: var(--color-sakura-soft); }
+.btn-chip--food { color: var(--color-accent); border-color: var(--color-sakura); }
+.btn-chip--food:hover, .btn-chip--food:active { background: var(--color-accent); color: #fff; border-color: var(--color-accent); }
+
+/* ---------- 補充備註 ---------- */
+.extra-notes { background: var(--color-card); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 16px 18px; list-style: none; box-shadow: var(--shadow-card); }
+.extra-notes li { position: relative; padding-left: 18px; font-size: 14px; color: var(--color-text-soft); line-height: 1.9; margin: 8px 0; }
+.extra-notes li::before { content: ""; position: absolute; left: 4px; top: 14px; width: 6px; height: 6px; border-radius: 50%; background: var(--color-sakura); }
+.extra-notes--empty { color: var(--color-text-light); font-size: 13.5px; text-align: center; padding: 22px 18px; }
+
+/* ---------- 介紹卡片 ---------- */
+.intro-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.intro-card { background: var(--color-card); border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-card); }
+.intro-card__img { aspect-ratio: 16 / 9; width: 100%; object-fit: cover; background: linear-gradient(135deg, var(--color-sakura-soft), var(--color-green-soft)); }
+.intro-card__body { padding: 14px 16px 16px; }
+.intro-card__name { font-size: 15.5px; font-weight: 600; margin-bottom: 6px; color: var(--color-text); }
+.intro-card__desc { font-size: 13.5px; color: var(--color-text-soft); line-height: 1.85; }
+
+/* ---------- 伴手禮 ---------- */
+.souvenir-list { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.souvenir-item { background: var(--color-card); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 14px 16px; }
+.souvenir-item__name { font-size: 15px; font-weight: 600; color: var(--color-text); margin-bottom: 4px; }
+.souvenir-item__desc { font-size: 13.5px; color: var(--color-text-soft); line-height: 1.85; margin-bottom: 10px; }
+.souvenir-item__map { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--color-accent); padding: 5px 11px; border: 1px solid var(--color-sakura); border-radius: 999px; min-height: 32px; }
+.souvenir-item__map:hover, .souvenir-item__map:active { background: var(--color-sakura-soft); }
+
+/* ---------- Modal ---------- */
+.modal { position: fixed; inset: 0; z-index: 100; display: none; align-items: flex-end; justify-content: center; }
+.modal.is-open { display: flex; }
+.modal__backdrop { position: absolute; inset: 0; background: rgba(58, 53, 56, 0.45); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+.modal__dialog { position: relative; background: var(--color-card); width: 100%; max-width: 560px; max-height: 88vh; overflow-y: auto; -webkit-overflow-scrolling: touch; border-radius: 18px 18px 0 0; padding: 22px 22px 28px; padding-bottom: calc(28px + env(safe-area-inset-bottom)); box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15); animation: modalSlideUp 0.3s cubic-bezier(.2,.8,.2,1); }
+@keyframes modalSlideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.modal__handle { width: 40px; height: 4px; border-radius: 4px; background: var(--color-border); margin: 0 auto 16px; }
+.modal__close { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; border-radius: 50%; font-size: 22px; color: var(--color-text-soft); display: inline-flex; align-items: center; justify-content: center; }
+.modal__close:hover, .modal__close:active { background: var(--color-sakura-soft); color: var(--color-accent); }
+.modal__title { font-family: var(--font-serif); font-size: 18px; color: var(--color-text); margin-bottom: 4px; padding-right: 44px; line-height: 1.5; }
+.modal__subtitle { font-size: 12px; color: var(--color-text-light); margin-bottom: 16px; letter-spacing: 0.12em; }
+.modal__list { list-style: none; }
+.modal__item { padding: 14px 0; border-bottom: 1px dashed var(--color-border); }
+.modal__item:last-child { border-bottom: none; padding-bottom: 4px; }
+.modal__item-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+.modal__item-name { font-size: 15px; font-weight: 600; color: var(--color-text); flex: 1; min-width: 0; }
+.modal__item-name-link { color: var(--color-text); border-bottom: 1px dashed var(--color-sakura); padding-bottom: 1px; }
+.modal__item-name-link:hover, .modal__item-name-link:active { color: var(--color-accent); border-bottom-color: var(--color-accent); }
+.modal__item-map { font-size: 12px; color: var(--color-accent); padding: 6px 12px; border: 1px solid var(--color-sakura); border-radius: 999px; white-space: nowrap; min-height: 32px; display: inline-flex; align-items: center; }
+.modal__item-map:hover, .modal__item-map:active { background: var(--color-sakura-soft); }
+.modal__item-desc { font-size: 13px; color: var(--color-text-soft); line-height: 1.8; }
+
+/* ---------- Footer ---------- */
+.site-footer { padding: 32px 20px 44px; text-align: center; color: var(--color-text-light); font-size: 12px; letter-spacing: 0.1em; border-top: 1px solid var(--color-border); background: var(--color-bg); }
+
+/* ---------- 桌機微調 ---------- */
+@media (min-width: 720px) {
+  .hero { padding: 110px 24px 90px; min-height: 62vh; }
+  .day { padding: 64px 24px 72px; }
+  .day__header { margin-bottom: 26px; padding-bottom: 22px; }
+  .day__module { padding: 20px 20px 28px; border-radius: 22px; }
+  .trip-card { padding: 22px 24px 20px; }
+  .intro-grid, .souvenir-list { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .intro-card__img { aspect-ratio: 4 / 3; }
+  .day__cover { aspect-ratio: 21 / 9; }
+  .day-tab { font-size: 15px; }
+  .modal { align-items: center; }
+  .modal__dialog { border-radius: 18px; max-height: 82vh; padding: 28px 28px 24px; }
+  .modal__handle { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero" id="hero">
+  <div class="hero__bg" id="heroBg" aria-hidden="true"></div>
+  <div class="hero__overlay" aria-hidden="true"></div>
+  <div class="container">
+    <span class="hero__label" id="heroLabel"></span>
+    <h1 class="hero__title" id="heroTitle"></h1>
+    <p class="hero__subtitle" id="heroSubtitle"></p>
+    <p class="hero__meta" id="heroMeta"></p>
+  </div>
+</header>
+
+<nav class="day-nav" id="dayNav">
+  <div class="day-nav__inner" id="dayNavInner"></div>
+</nav>
+
+<main id="daysContainer"></main>
+
+<div class="modal" id="foodModal" role="dialog" aria-modal="true" aria-labelledby="foodModalTitle">
+  <div class="modal__backdrop" data-modal-close></div>
+  <div class="modal__dialog">
+    <div class="modal__handle"></div>
+    <button class="modal__close" data-modal-close aria-label="關閉">×</button>
+    <h3 class="modal__title" id="foodModalTitle">附近吃食</h3>
+    <p class="modal__subtitle">NEARBY · FOOD &amp; DRINK</p>
+    <ul class="modal__list" id="foodModalList"></ul>
+  </div>
+</div>
+
+<footer class="site-footer" id="siteFooter"></footer>
+
+
+<!-- =========================================================
+     ★★★ 所有旅遊內容都集中在這裡 ★★★
+     只要修改下面 heroData、itineraryData、footerText 三個變數
+     整個網頁內容就會跟著更新。
+     ========================================================= -->
+<script>
+
+/* ===========================================================
+   【一、頁首 Hero 區塊內容】
+   =========================================================== */
+const heroData = {
+  label: "TOHOKU · HOKKAIDO · SPRING 2026",
+  title: "東北・北海道 9 天春日旅行",
+  subtitle: "仙台、盛岡、青森、函館——沿著櫻花、港口與小城的節奏慢慢走。",
+  meta: "2026.04.25 — 2026.05.03 ｜ 仙台 · 松島 · 盛岡 · 青森 · 函館",
+  // ↓ 想換圖只要改下面這行的網址即可（留空字串則使用柔和漸層）
+  backgroundImage: "https://images.unsplash.com/photo-1522383225653-ed111181a951?auto=format&fit=crop&w=1600&q=80",
+  backgroundAlt: "東北春天櫻花氛圍"
+};
+
+/* ===========================================================
+   【二、頁尾文字】
+   =========================================================== */
+const footerText = "© 2026 Tohoku & Hokkaido Travel Notes · 私人旅行手帳";
+
+
+/* ===========================================================
+   【三、旅行主要內容 itineraryData】
+   -----------------------------------------------------------
+   每一天格式：
+   {
+     day         : "Day 1",
+     date        : "2026/04/25（六）",
+     title       : "台北 → 仙台",
+     subtitle    : "抵達仙台、賞櫻散策",
+     coverImage  : "",     ← 當天大封面圖片網址（空字串會顯示 placeholder）
+     coverAlt    : "",     ← 圖片替代文字
+     hotel       : { name: "仙台東大都會酒店", mapLink: "https://..." },
+     schedule    : [ ... ],
+     introCards  : [ { title, image, text, mapLink } ... ],
+     souvenirs   : [ { name, description, mapLink } ... ],
+     extraNotes  : [ "...", "..." ]
+   }
+
+   schedule 每一筆：
+   {
+     type        : "fixed" | "optional" | "backup"
+                    fixed    → 固定（淡粉紅徽章）
+                    optional → 彈性（淡灰藍徽章）
+                    backup   → 備案（淡霧綠徽章）
+     time        : "11:35–16:00"   沒時間就寫 ""
+     place       : "地點名稱"       ← 若 mapLink 有值，名稱本身會直接變成 Google Maps 連結
+     mapLink     : ""              沒連結就留空
+     description : ""              描述（可 placeholder）
+     note        : ""              注意事項（可 placeholder）
+     foods       : [ { name, mapLink, info } ]  附近吃食（點按鈕才顯示）
+   }
+   =========================================================== */
+
+const itineraryData = [
+
+  /* ---------------- Day 1 ---------------- */
+  {
+    day: "Day 1",
+    date: "2026/04/25（六）",
+    title: "台北 → 仙台",
+    subtitle: "抵達仙台、入住後於仙台站周邊簡單散策",
+    coverImage: "",
+    coverAlt: "仙台站周邊",
+    hotel: {
+      name: "仙台東大都會酒店",
+      mapLink: "https://maps.google.com/?q=仙台東大都會酒店"
+    },
+    schedule: [
+      {
+        type: "fixed",
+        time: "06:15",
+        place: "爸媽機場接送出發",
+        mapLink: "",
+        description: "",
+        note: "確認護照；若不塞車，爸媽會先到機場，先在第一航廈等待。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "08:10",
+        place: "我們機場接送出發",
+        mapLink: "",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "11:35–16:00",
+        place: "班機 JX862 台北 → 仙台",
+        mapLink: "",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "中餐：飛機餐",
+        mapLink: "",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "仙台機場出發前往仙台站",
+        mapLink: "https://maps.google.com/?q=Sendai+Station",
+        description: "",
+        note: "與愷鈞會合。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "飯店 check in / 寄放行李",
+        mapLink: "https://maps.google.com/?q=仙台東大都會酒店",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "晚餐：牛舌",
+        mapLink: "",
+        description: "",
+        note: "",
+        foods: [
+          { name: "牛たんの一仙",                    mapLink: "https://maps.google.com/?q=牛たんの一仙+仙台",           info: "營業 11:00–22:00 ｜ 評分 4.4 ｜ 碳香明顯、牛舌有嚼勁、份量大，推薦厚切；吉利可吃牛舌燉煮。" },
+          { name: "牛タン焼き一隆 本店",              mapLink: "https://maps.google.com/?q=牛タン焼き一隆+本店+仙台",   info: "營業 11:30–13:30、18:00–19:30（週日公休） ｜ 評分 4.5 ｜ 牛舌可點正常與瘦肉各半，推薦燉牛舌；吉利可吃味增豬排。" },
+          { name: "烤牛舌 善治郎 仙台站前本店",       mapLink: "https://maps.google.com/?q=善治郎+仙台駅前本店",         info: "營業 11:00–23:00 ｜ 評分 4.3 ｜ 餐點口味多樣，推薦厚切牛舌、牛舌香腸、牛舌煎餃、燒烤牛橫隔膜。" },
+          { name: "牛たん・和食 食事処 とら助",        mapLink: "https://maps.google.com/?q=牛たん+とら助+仙台",         info: "營業 17:00–22:00（週末公休） ｜ 評分 4.3 ｜ 當地人推薦的小店，店面不大，英文不通。" },
+          { name: "仙臺牛たん 貴（タカ）",            mapLink: "https://maps.google.com/?q=仙臺牛たん+貴+仙台",          info: "營業 11:30–14:00、17:30–22:30 ｜ 評分 4.3 ｜ 當地人會吃的小餐館，推薦碳烤厚切牛舌。" },
+          { name: "牛舌料理 閣 仙台Vlandome店",       mapLink: "https://maps.google.com/?q=牛舌料理+閣+Vlandome",        info: "營業 11:30–14:00、17:30–22:00 ｜ 評分 4.5 ｜ 有包廂，料理多元，少數有牛舌刺身的店，是炙燒牛舌專門，很多人心中的第一名。" }
+        ]
+      },
+      {
+        type: "optional",
+        time: "",
+        place: "仙台站周邊晃晃",
+        mapLink: "https://maps.google.com/?q=Sendai+Station",
+        description: "",
+        note: "視時間決定是否先買一些藥妝。",
+        foods: []
+      }
+    ],
+    introCards: [
+      { title: "仙台市區初印象", image: "", mapLink: "https://maps.google.com/?q=仙台市", text: "（placeholder）杜之都仙台，街道綠意盎然，是旅人進入東北的第一站。可填寫第一印象。" },
+      { title: "仙台櫻花散策",   image: "", mapLink: "https://maps.google.com/?q=西公園+仙台", text: "（placeholder）西公園與榴岡公園是仙台市區兩大賞櫻名所，春日散步氣氛舒服。" }
+    ],
+    souvenirs: [
+      { name: "仙台車站伴手禮", mapLink: "https://maps.google.com/?q=仙台車站+伴手禮", description: "（placeholder）仙台車站本身就是伴手禮寶庫，可一次收集多家。" },
+      { name: "牛舌相關伴手禮", mapLink: "",                                           description: "（placeholder）牛舌零食、真空包、仙貝等。" },
+      { name: "其他伴手禮",     mapLink: "",                                           description: "（placeholder）可填萩の月、毛豆點心等。" }
+    ],
+    extraNotes: [
+      "第一天重點是順利抵達、會合、入住與簡單晚餐",
+      "仙台站周邊散步與藥妝採買可視體力與時間調整"
+    ]
+  },
+
+  /* ---------------- Day 2 ---------------- */
+  {
+    day: "Day 2",
+    date: "2026/04/26（日）",
+    title: "仙台",
+    subtitle: "仙台市區散策",
+    coverImage: "",
+    coverAlt: "仙台朝市",
+    hotel: {
+      name: "仙台東大都會酒店",
+      mapLink: "https://maps.google.com/?q=仙台東大都會酒店"
+    },
+    schedule: [
+      {
+        type: "fixed",
+        time: "",
+        place: "仙台市區",
+        mapLink: "https://maps.google.com/?q=仙台市",
+        description: "（placeholder）全日放鬆散步仙台市區。",
+        note: "（placeholder）行走路線與休息點可再補。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "早上",
+        place: "仙台朝市吃早餐",
+        mapLink: "https://maps.google.com/?q=仙台朝市",
+        description: "（placeholder）老字號市場，適合早上來吃海鮮丼或定食。",
+        note: "（placeholder）假日人潮多，建議早點到。",
+        foods: [
+          { name: "coner house 仙台 咖啡", mapLink: "https://maps.google.com/?q=coner+house+仙台", info: "營業時間 placeholder ｜ 評分 placeholder ｜ 推薦原因 placeholder" },
+          { name: "charcoal jus",           mapLink: "https://maps.google.com/?q=charcoal+jus+仙台", info: "營業時間 placeholder ｜ 評分 placeholder ｜ 推薦原因 placeholder" },
+          { name: "毛豆年糕",               mapLink: "https://maps.google.com/?q=ずんだ餅+仙台",     info: "營業時間 placeholder ｜ 評分 placeholder ｜ 推薦原因 placeholder" },
+          { name: "cafe 青巴旦",            mapLink: "https://maps.google.com/?q=cafe+青巴旦+仙台",  info: "（店名以筆記原樣保留，上網再確認）" },
+          { name: "Ichifuku",               mapLink: "https://maps.google.com/?q=Ichifuku+仙台",      info: "營業時間 placeholder ｜ 評分 placeholder ｜ 推薦原因 placeholder" }
+        ]
+      },
+      {
+        type: "optional",
+        time: "",
+        place: "地底之森博物館",
+        mapLink: "https://maps.google.com/?q=仙台市富沢遺跡保存館",
+        description: "（placeholder）地下遺跡博物館，走動少、冷氣足，適合長輩同行。",
+        note: "（placeholder）視當天體力決定是否前往。",
+        foods: []
+      },
+      {
+        type: "optional",
+        time: "",
+        place: "仙台城（視體力與階梯狀況）",
+        mapLink: "https://maps.google.com/?q=仙台城跡",
+        description: "（placeholder）伊達政宗騎馬像所在，展望仙台市區佳。",
+        note: "（placeholder）要走階梯，如長輩膝蓋不便可改搭 loople 巴士接近或跳過。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "午餐",
+        place: "午餐：牛舌",
+        mapLink: "",
+        description: "（placeholder）可從牛舌名店清單中挑選。",
+        note: "（placeholder）熱門店午餐需排隊，建議提早或錯峰。",
+        foods: [
+          { name: "牛舌司",            mapLink: "https://maps.google.com/?q=牛舌司+仙台",         info: "（placeholder）填入細節。" },
+          { name: "伊達の牛たん本舗",  mapLink: "https://maps.google.com/?q=伊達の牛たん本舗",    info: "（placeholder）填入細節。" }
+        ]
+      },
+      {
+        type: "fixed",
+        time: "晚餐",
+        place: "晚餐：牛舌",
+        mapLink: "",
+        description: "（placeholder）再吃一次牛舌 — 可換不同店比較。",
+        note: "（placeholder）晚上熱門店同樣建議訂位。",
+        foods: [
+          { name: "仙臺牛たん 貴 努力",         mapLink: "https://maps.google.com/?q=仙臺牛たん+貴+努力",       info: "（placeholder）填入細節。" },
+          { name: "牛舌料理 閣 Vlandome店",     mapLink: "https://maps.google.com/?q=牛舌料理+閣+Vlandome",    info: "（placeholder）填入細節。" }
+        ]
+      }
+    ],
+    introCards: [
+      { title: "仙台朝市",            image: "", mapLink: "https://maps.google.com/?q=仙台朝市",     text: "（placeholder）仙台在地早市風景，海鮮與家常小吃聚集之地。" },
+      { title: "地底之森 / 仙台城",   image: "", mapLink: "https://maps.google.com/?q=仙台城跡",     text: "（placeholder）兩個彈性景點：前者是室內博物館，後者是仙台象徵城跡。" }
+    ],
+    souvenirs: [
+      { name: "牛舌相關伴手禮", mapLink: "",                                         description: "（placeholder）牛舌仙貝、真空包、香脆零食。" },
+      { name: "仙台車站伴手禮", mapLink: "https://maps.google.com/?q=仙台車站+伴手禮", description: "（placeholder）離仙台前可一次收齊。" },
+      { name: "其他 placeholder", mapLink: "",                                      description: "（placeholder）毛豆點心、萩の月等。" }
+    ],
+    extraNotes: [
+      "地底之森 / 仙台城保留彈性安排",
+      "長輩行走時間較長時，安排 1–2 次咖啡休息",
+      "午晚餐牛舌盡量排不同店比較口感"
+    ]
+  },
+
+  /* ---------------- Day 3 ---------------- */
+  {
+    day: "Day 3",
+    date: "2026/04/27（一）",
+    title: "仙台 → 松島 → 盛岡",
+    subtitle: "松島海岸、移動至盛岡",
+    coverImage: "",
+    coverAlt: "松島海岸",
+    hotel: {
+      name: "Dormy Inn Morioka",
+      mapLink: "https://maps.google.com/?q=Dormy+Inn+Morioka"
+    },
+    schedule: [
+      {
+        type: "fixed",
+        time: "08:30",
+        place: "出發前往松島",
+        mapLink: "https://maps.google.com/?q=松島",
+        description: "（placeholder）仙台 → 松島，交通方式（自駕 / JR 仙石線）placeholder。",
+        note: "（placeholder）自駕需確認停車位置；公共交通需查班次。",
+        foods: []
+      },
+      {
+        type: "optional",
+        time: "",
+        place: "鹽竈神社",
+        mapLink: "https://maps.google.com/?q=鹽竈神社",
+        description: "（placeholder）松島附近的古社，可看花況決定是否前往。",
+        note: "（placeholder）需爬石階，對長輩不一定友善。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "西行戻しの松公園（登高望松島海岸）",
+        mapLink: "https://maps.google.com/?q=西行戻しの松公園",
+        description: "（placeholder）俯瞰松島灣的觀景公園，天氣好時視野極佳。",
+        note: "（placeholder）園內有坡道，慢走約 15–20 分鐘。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "中午",
+        place: "松島市場",
+        mapLink: "https://maps.google.com/?q=松島さかな市場",
+        description: "（placeholder）牡蠣丼、海鮮丼、現烤海產，適合中午用餐。",
+        note: "（placeholder）假日人潮多，建議先挑定目標攤位。",
+        foods: [
+          { name: "松島市場附近美食 placeholder", mapLink: "", info: "（placeholder）可列牡蠣屋、蒲鉾店等。" }
+        ]
+      },
+      {
+        type: "fixed",
+        time: "最晚 15:00",
+        place: "出發前往盛岡",
+        mapLink: "https://maps.google.com/?q=盛岡",
+        description: "（placeholder）自駕 / 新幹線路線 placeholder。",
+        note: "（placeholder）晚班交通若誤點會影響晚餐，建議抓時間寬鬆。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "松島到盛岡約兩個半小時",
+        mapLink: "",
+        description: "（placeholder）交通時間提醒，路上可安排短暫休息。",
+        note: "（placeholder）自駕者建議中途服務區休息一次。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "晚上",
+        place: "抵達盛岡",
+        mapLink: "https://maps.google.com/?q=Dormy+Inn+Morioka",
+        description: "（placeholder）抵達後 check in、晚餐、休息。",
+        note: "（placeholder）Dormy Inn 夜鳴蕎麥是亮點，可留胃。",
+        foods: [
+          { name: "盛岡晚餐 placeholder", mapLink: "", info: "（placeholder）可列冷麵、じゃじゃ麺名店。" }
+        ]
+      }
+    ],
+    introCards: [
+      { title: "松島海岸",            image: "", mapLink: "https://maps.google.com/?q=松島", text: "（placeholder）日本三景之一，灣內星羅散布小島。" },
+      { title: "西行戻しの松公園",   image: "", mapLink: "https://maps.google.com/?q=西行戻しの松公園", text: "（placeholder）登高眺望松島海岸的絕佳觀景點。" }
+    ],
+    souvenirs: [
+      { name: "松島相關名產 placeholder", mapLink: "", description: "（placeholder）笹蒲鉾、牡蠣煎餅、最中等。" },
+      { name: "盛岡名產 placeholder",     mapLink: "", description: "（placeholder）南部鐵器、地酒、冷麵外帶包。" }
+    ],
+    extraNotes: [
+      "松島段保留彈性，依花況與體力再決定停留時間",
+      "交通方式（自駕 / JR）請再依當日情況確認",
+      "盛岡 Dormy Inn 夜鳴蕎麥可留胃"
+    ]
+  },
+
+  /* ---------------- Day 4 ---------------- */
+  {
+    day: "Day 4",
+    date: "2026/04/28（二）",
+    title: "盛岡 → 青森屋",
+    subtitle: "盛岡市區散策、前往青森屋",
+    coverImage: "",
+    coverAlt: "盛岡石割櫻",
+    hotel: {
+      name: "青森屋",
+      mapLink: "https://maps.google.com/?q=星野リゾート+青森屋"
+    },
+    schedule: [
+      {
+        type: "fixed",
+        time: "",
+        place: "石割櫻",
+        mapLink: "https://maps.google.com/?q=石割桜",
+        description: "（placeholder）從巨石裂縫生長的老櫻，盛岡代表景點。",
+        note: "（placeholder）位於盛岡地方裁判所前，步行即達。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "岩手銀行紅磚館",
+        mapLink: "https://maps.google.com/?q=岩手銀行赤レンガ館",
+        description: "（placeholder）明治時期的紅磚建築，室內展覽氣氛很好。",
+        note: "（placeholder）館內有 cafe，可順便休息。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "盛岡城跡公園",
+        mapLink: "https://maps.google.com/?q=盛岡城跡公園",
+        description: "（placeholder）花崗岩石垣與春櫻並陳，慢走很舒服。",
+        note: "（placeholder）園內不大，步道平緩，適合長輩。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "盛岡八幡宮",
+        mapLink: "https://maps.google.com/?q=盛岡八幡宮",
+        description: "（placeholder）盛岡代表神社，朱色殿宇漂亮。",
+        note: "（placeholder）距離市中心稍遠，可安排順路或車接。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "中午",
+        place: "東家蕎麥麵",
+        mapLink: "https://maps.google.com/?q=東家+盛岡",
+        description: "（placeholder）盛岡名物「碗子蕎麥」老舖。",
+        note: "（placeholder）碗子蕎麥份量吃得快，需留意腸胃負擔。",
+        foods: [
+          { name: "福田麵包",      mapLink: "https://maps.google.com/?q=福田パン+盛岡", info: "營業 07:00–17:00 ｜ 評分 placeholder ｜ 盛岡超人氣早餐。" },
+          { name: "東家蕎麥麵",    mapLink: "https://maps.google.com/?q=東家+盛岡",     info: "營業時間 placeholder ｜ 評分 placeholder ｜ 碗子蕎麥老舖。" }
+        ]
+      },
+      {
+        type: "fixed",
+        time: "中午後",
+        place: "離開盛岡前往青森屋",
+        mapLink: "https://maps.google.com/?q=星野リゾート+青森屋",
+        description: "（placeholder）交通方式 placeholder（自駕 / 新幹線 + 接駁）。",
+        note: "（placeholder）青森屋 check-in 時間與晚餐時間請提前預約。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "盛岡到青森屋約兩小時",
+        mapLink: "",
+        description: "（placeholder）移動時間提醒。",
+        note: "（placeholder）中途停留點 placeholder。",
+        foods: []
+      }
+    ],
+    introCards: [
+      { title: "石割櫻",            image: "", mapLink: "https://maps.google.com/?q=石割桜",         text: "（placeholder）樹齡約 360 年的老櫻，自花崗岩縫中生長的奇景。" },
+      { title: "盛岡城跡公園",      image: "", mapLink: "https://maps.google.com/?q=盛岡城跡公園",   text: "（placeholder）南部氏舊城址，現為市民公園。" }
+    ],
+    souvenirs: [
+      { name: "盛岡伴手禮 placeholder", mapLink: "", description: "（placeholder）南部鐵器、地酒、冷麵外帶包。" },
+      { name: "其他 placeholder",        mapLink: "", description: "（placeholder）可填福田麵包等。" }
+    ],
+    extraNotes: [
+      "可補各景點步行順序 placeholder",
+      "可補停車 / 交通 placeholder",
+      "青森屋入住時間與晚餐時段建議提前確認"
+    ]
+  },
+
+  /* ---------------- Day 5 ---------------- */
+  {
+    day: "Day 5",
+    date: "2026/04/29（三）",
+    title: "奧入瀨溪流、十和田湖、弘前、青森",
+    subtitle: "奧入瀨溪流與弘前",
+    coverImage: "",
+    coverAlt: "奧入瀨溪流",
+    hotel: {
+      name: "SharCul Aomori",
+      mapLink: "https://maps.google.com/?q=SharCul+Aomori"
+    },
+    schedule: [
+      {
+        type: "fixed",
+        time: "",
+        place: "奧入瀨溪流",
+        mapLink: "https://maps.google.com/?q=奥入瀬渓流",
+        description: "（placeholder）約 14 公里的溪流步道，春天嫩葉很美。",
+        note: "（placeholder）步道與車道並行處請注意安全。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "十和田湖",
+        mapLink: "https://maps.google.com/?q=十和田湖",
+        description: "（placeholder）奧入瀨溪流源頭，湖畔風景靜謐。",
+        note: "（placeholder）湖畔風大，建議帶防風外套。",
+        foods: []
+      },
+      {
+        type: "optional",
+        time: "",
+        place: "步行：奧入瀨溪流館至石ヶ戸休息所",
+        mapLink: "https://maps.google.com/?q=奥入瀬渓流館",
+        description: "（placeholder）較緩和的一段，適合初學者與長輩。",
+        note: "（placeholder）全程步行 placeholder 分鐘。",
+        foods: []
+      },
+      {
+        type: "optional",
+        time: "",
+        place: "改走：雲井瀑布一帶（這段最美）",
+        mapLink: "https://maps.google.com/?q=雲井の滝",
+        description: "（placeholder）奧入瀨最精華段，瀑布集中。",
+        note: "（placeholder）視體力與時間決定走哪段。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "中午",
+        place: "Kattaya Mizuumitei 湖畔みずうみ亭",
+        mapLink: "https://maps.google.com/?q=湖畔みずうみ亭",
+        description: "（placeholder）十和田湖畔餐廳，提供當地料理。",
+        note: "（placeholder）旺季可能需候位。",
+        foods: [
+          { name: "十和田湖周邊美食 placeholder", mapLink: "", info: "（placeholder）湖畔幾家餐廳可填入。" }
+        ]
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "青森",
+        mapLink: "https://maps.google.com/?q=青森市",
+        description: "（placeholder）前往青森市區。",
+        note: "（placeholder）移動距離較長，中途安排休息。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "廣田神社",
+        mapLink: "https://maps.google.com/?q=広田神社+青森",
+        description: "（placeholder）青森市區的神社，環境安靜。",
+        note: "（placeholder）步行即達。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "中町小巷街",
+        mapLink: "https://maps.google.com/?q=中町こみせ通り",
+        description: "（placeholder）黑石市中町傳統街道，木造屋簷「小見世」連綿。",
+        note: "（placeholder）從青森市區移動約 40 分鐘。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "弘前城",
+        mapLink: "https://maps.google.com/?q=弘前城",
+        description: "（placeholder）東北最壯麗的賞櫻名所之一。",
+        note: "（placeholder）若抵達已是傍晚，可走公園外圍感受氣氛。",
+        foods: [
+          { name: "弘前 / 青森市區美食 placeholder", mapLink: "", info: "（placeholder）可列當地食堂與咖啡。" }
+        ]
+      }
+    ],
+    introCards: [
+      { title: "奧入瀨溪流",  image: "", mapLink: "https://maps.google.com/?q=奥入瀬渓流", text: "（placeholder）青森代表的溪流美景，四季皆宜，春天最嫩綠。" },
+      { title: "弘前城",      image: "", mapLink: "https://maps.google.com/?q=弘前城",     text: "（placeholder）日本賞櫻百選第一的景點，護城河花筏為一絕。" }
+    ],
+    souvenirs: [
+      { name: "青森蘋果相關伴手禮", mapLink: "",                                         description: "（placeholder）蘋果派、氣泡蘋果酒、果汁。" },
+      { name: "弘前名產 placeholder", mapLink: "https://maps.google.com/?q=弘前+名產", description: "（placeholder）蘋果派地圖、Cidre 等。" }
+    ],
+    extraNotes: [
+      "請補這天移動順序 placeholder",
+      "可補天氣與步行強度注意事項",
+      "奧入瀨與弘前行程很滿，建議抓好時間並保留彈性"
+    ]
+  },
+
+  /* ---------------- Day 6 ---------------- */
+  {
+    day: "Day 6",
+    date: "2026/04/30（四）",
+    title: "青森 → 函館",
+    subtitle: "青森市區散策後前往函館",
+    coverImage: "",
+    coverAlt: "青森 A-FACTORY",
+    hotel: {
+      name: "OMO5 函館",
+      mapLink: "https://maps.google.com/?q=OMO5+函館"
+    },
+    schedule: [
+      {
+        type: "fixed",
+        time: "",
+        place: "青森魚菜中心（古川市場）",
+        mapLink: "https://maps.google.com/?q=青森魚菜センター",
+        description: "（placeholder）著名的 DIY 蓋飯市場，自由挑選配料。",
+        note: "（placeholder）早去選擇多；可買票券逐攤蓋飯。",
+        foods: [
+          { name: "古川市場周邊美食 placeholder", mapLink: "", info: "（placeholder）可填幾家海鮮丼、定食。" }
+        ]
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "青森縣觀光物產館 ASPAM",
+        mapLink: "https://maps.google.com/?q=青森県観光物産館アスパム",
+        description: "（placeholder）青森名產集散地，可快速採買伴手禮。",
+        note: "（placeholder）近青森港，可順看海景。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "A-FACTORY",
+        mapLink: "https://maps.google.com/?q=A-FACTORY+青森",
+        description: "（placeholder）青森蘋果酒工房與選物商店，氣氛很好。",
+        note: "（placeholder）有試飲櫃台，喜歡可直接入手。",
+        foods: [
+          { name: "青森站周邊咖啡 / 輕食 placeholder", mapLink: "", info: "（placeholder）可填 A-FACTORY 內餐飲或附近咖啡。" }
+        ]
+      },
+      {
+        type: "fixed",
+        time: "中午前後",
+        place: "移動",
+        mapLink: "",
+        description: "（placeholder）前往新青森站搭新幹線。",
+        note: "（placeholder）建議預留 30 分鐘緩衝。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "15:31–16:30",
+        place: "新青森 → 新函館北斗",
+        mapLink: "https://maps.google.com/?q=新函館北斗駅",
+        description: "（placeholder）北海道新幹線，約 1 小時。",
+        note: "（placeholder）車票建議預訂指定席。",
+        foods: []
+      }
+    ],
+    introCards: [
+      { title: "青森魚菜中心", image: "", mapLink: "https://maps.google.com/?q=青森魚菜センター", text: "（placeholder）自由搭配的海鮮蓋飯文化，青森人氣景點。" },
+      { title: "A-FACTORY",     image: "", mapLink: "https://maps.google.com/?q=A-FACTORY+青森",   text: "（placeholder）青森蘋果酒工房，結合選物與試飲。" }
+    ],
+    souvenirs: [
+      { name: "青森蘋果甜點",              mapLink: "",                                             description: "（placeholder）蘋果派、果凍、乾果等。" },
+      { name: "A-FACTORY 可購買 items placeholder", mapLink: "https://maps.google.com/?q=A-FACTORY+青森", description: "（placeholder）蘋果酒 Cidre、選物商品。" }
+    ],
+    extraNotes: [
+      "可補青森站周邊順路安排 placeholder",
+      "新幹線需保留轉乘緩衝時間"
+    ]
+  },
+
+  /* ---------------- Day 7 ---------------- */
+  {
+    day: "Day 7",
+    date: "2026/05/01（五）",
+    title: "函館",
+    subtitle: "函館經典散策",
+    coverImage: "",
+    coverAlt: "函館夜景",
+    hotel: {
+      name: "OMO5 函館",
+      mapLink: "https://maps.google.com/?q=OMO5+函館"
+    },
+    schedule: [
+      {
+        type: "fixed",
+        time: "早上",
+        place: "函館朝市",
+        mapLink: "https://maps.google.com/?q=函館朝市",
+        description: "（placeholder）來函館必訪的市場，海鮮丼與新鮮海產。",
+        note: "（placeholder）朝市約早上 05:00 開始，越早越熱鬧。",
+        foods: [
+          { name: "函館朝市海鮮 placeholder", mapLink: "", info: "（placeholder）可填幾家海鮮丼名店。" }
+        ]
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "湯倉神社",
+        mapLink: "https://maps.google.com/?q=湯倉神社",
+        description: "（placeholder）湯の川溫泉守護神社，靜謐有氣氛。",
+        note: "（placeholder）位於湯の川地區，可順訪溫泉街。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "函館市",
+        mapLink: "https://maps.google.com/?q=函館市",
+        description: "（placeholder）可自由安排西部地區散步。",
+        note: "（placeholder）市內可用市電移動方便。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "中午",
+        place: "八幡坂",
+        mapLink: "https://maps.google.com/?q=八幡坂+函館",
+        description: "（placeholder）函館最上相的坂道，眺望港口。",
+        note: "（placeholder）坡度不大但累積距離，慢慢走。",
+        foods: [
+          { name: "八幡坂周邊咖啡 / 甜點 placeholder", mapLink: "", info: "（placeholder）可填幾家小店。" }
+        ]
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "英國領事館",
+        mapLink: "https://maps.google.com/?q=函館旧イギリス領事館",
+        description: "（placeholder）英式洋館與玫瑰花園，下午茶名所。",
+        note: "（placeholder）館內有咖啡廳。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "晚上",
+        place: "函館山 / 函館山纜車",
+        mapLink: "https://maps.google.com/?q=函館山ロープウェイ",
+        description: "（placeholder）世界三大夜景之一，傍晚前上山。",
+        note: "（placeholder）日落前 30 分鐘抵達最佳；風大建議保暖。",
+        foods: []
+      }
+    ],
+    introCards: [
+      { title: "函館朝市",    image: "", mapLink: "https://maps.google.com/?q=函館朝市",            text: "（placeholder）函館代表性海鮮市場，早起享受海味的地方。" },
+      { title: "函館山夜景",  image: "", mapLink: "https://maps.google.com/?q=函館山ロープウェイ", text: "（placeholder）世界三大夜景之一，函館象徵。" }
+    ],
+    souvenirs: [
+      { name: "函館甜點 placeholder",       mapLink: "", description: "（placeholder）海鹽布丁、雪印牛奶相關等。" },
+      { name: "函館限定伴手禮 placeholder", mapLink: "", description: "（placeholder）五稜郭、金森紅磚倉庫聯名商品。" }
+    ],
+    extraNotes: [
+      "請補函館山夜景與纜車注意事項 placeholder",
+      "若陰天可改隔天看夜景，保留彈性"
+    ]
+  },
+
+  /* ---------------- Day 8 ---------------- */
+  {
+    day: "Day 8",
+    date: "2026/05/02（六）",
+    title: "函館",
+    subtitle: "紅磚倉庫與五稜郭",
+    coverImage: "",
+    coverAlt: "金森紅磚倉庫",
+    hotel: {
+      name: "OMO5 函館",
+      mapLink: "https://maps.google.com/?q=OMO5+函館"
+    },
+    schedule: [
+      {
+        type: "fixed",
+        time: "早上",
+        place: "函館朝市",
+        mapLink: "https://maps.google.com/?q=函館朝市",
+        description: "（placeholder）再訪朝市，採買最後一波。",
+        note: "（placeholder）可買點水產當宅配寄回。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "函館市",
+        mapLink: "https://maps.google.com/?q=函館市",
+        description: "（placeholder）市內自由安排。",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "紅磚倉庫",
+        mapLink: "https://maps.google.com/?q=金森赤レンガ倉庫",
+        description: "（placeholder）函館港邊人氣觀光景點，商店、咖啡、雜貨集中。",
+        note: "（placeholder）假日人潮較多。",
+        foods: [
+          { name: "紅磚倉庫周邊美食 placeholder", mapLink: "", info: "（placeholder）可填咖啡廳、海鮮餐廳等。" }
+        ]
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "五稜郭公園",
+        mapLink: "https://maps.google.com/?q=五稜郭公園",
+        description: "（placeholder）星形要塞，春天賞櫻名所。",
+        note: "（placeholder）五稜郭塔展望台需另購票。",
+        foods: [
+          { name: "五稜郭周邊美食 placeholder", mapLink: "", info: "（placeholder）可列幾家拉麵或甜點店。" }
+        ]
+      },
+      {
+        type: "fixed",
+        time: "晚上",
+        place: "函館市區",
+        mapLink: "https://maps.google.com/?q=函館市",
+        description: "（placeholder）市區晚餐、散步。",
+        note: "（placeholder）可安排最後一晚的名店或吃拉麵收尾。",
+        foods: []
+      }
+    ],
+    introCards: [
+      { title: "金森紅磚倉庫",  image: "", mapLink: "https://maps.google.com/?q=金森赤レンガ倉庫", text: "（placeholder）明治時代保存至今的紅磚倉庫群，現為商場與咖啡聚集地。" },
+      { title: "五稜郭公園",    image: "", mapLink: "https://maps.google.com/?q=五稜郭公園",       text: "（placeholder）日本唯一的星形要塞，春季賞櫻名勝。" }
+    ],
+    souvenirs: [
+      { name: "函館紅磚倉庫可買 items placeholder", mapLink: "https://maps.google.com/?q=金森赤レンガ倉庫", description: "（placeholder）雜貨、函館限定甜點。" },
+      { name: "五稜郭區域伴手禮 placeholder",       mapLink: "",                                              description: "（placeholder）可填五稜郭塔內商品等。" }
+    ],
+    extraNotes: [
+      "可補五稜郭公園賞景 / 塔是否加入的 placeholder",
+      "最後一晚建議整理行李，準備隔天返程"
+    ]
+  },
+
+  /* ---------------- Day 9 ---------------- */
+  {
+    day: "Day 9",
+    date: "2026/05/03（日）",
+    title: "函館 → 仙台 → 台北",
+    subtitle: "返程日",
+    coverImage: "",
+    coverAlt: "返程日",
+    hotel: {
+      name: "",
+      mapLink: ""
+    },
+    schedule: [
+      {
+        type: "fixed",
+        time: "",
+        place: "新函館北斗 → 仙台站",
+        mapLink: "https://maps.google.com/?q=仙台駅",
+        description: "（placeholder）北海道新幹線南下。",
+        note: "（placeholder）車票建議預訂指定席，行李位請提前預約。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "10:53–13:29",
+        place: "（新幹線交通）",
+        mapLink: "",
+        description: "（placeholder）車程約 2 小時 36 分。",
+        note: "（placeholder）可在車上午餐、休息。",
+        foods: [
+          { name: "仙台站周邊最後採買 / 最後用餐 placeholder", mapLink: "https://maps.google.com/?q=仙台駅+伴手禮", info: "（placeholder）牛舌便當、萩の月、毛豆點心等。" }
+        ]
+      },
+      {
+        type: "fixed",
+        time: "17:20–20:10",
+        place: "JX863 仙台 → 台北",
+        mapLink: "https://maps.google.com/?q=Sendai+Airport",
+        description: "（placeholder）返程班機。",
+        note: "（placeholder）建議抵達機場 2 小時前，預留辦理手續時間。",
+        foods: []
+      }
+    ],
+    introCards: [
+      { title: "返程日",    image: "", mapLink: "", text: "（placeholder）最後一天的交通安排日，以緩衝時間為主。" },
+      { title: "旅程收尾",  image: "", mapLink: "", text: "（placeholder）這段旅行的 highlight 回顧 placeholder。" }
+    ],
+    souvenirs: [
+      { name: "最後採買 placeholder",     mapLink: "",                                           description: "（placeholder）仙台站伴手禮最後補齊。" },
+      { name: "仙台站伴手禮 placeholder", mapLink: "https://maps.google.com/?q=仙台駅+伴手禮", description: "（placeholder）牛舌系列、萩の月、毛豆點心。" }
+    ],
+    extraNotes: [
+      "請補返程日緩衝時間 placeholder",
+      "可補仙台站短暫停留 / 用餐 placeholder",
+      "建議機場提前 2 小時報到"
+    ]
+  }
+
+  /* 想新增 Day 10？複製任一個 { ... } 物件貼在這後面，前面加逗號 */
+];
+
+
+/* ===========================================================
+   【四、以下是渲染邏輯】
+   只想改內容 → 改上面的 itineraryData；不想改排版不必動這段。
+   =========================================================== */
+
+function escapeHTML(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
+  }[c]));
+}
+
+/* 包裝：若有 mapLink，把任何文字變成 Google Maps 連結 */
+function wrapPlaceLink(text, mapLink, extraClass) {
+  const safeText = escapeHTML(text || "");
+  if (!mapLink) return safeText;
+  return `<a class="place-link ${extraClass || ""}" href="${escapeHTML(mapLink)}" target="_blank" rel="noopener">${safeText}</a>`;
+}
+
+/* 類型對照表 */
+const TYPE_LABEL = { fixed: "固定", optional: "彈性", backup: "備案" };
+const TYPE_CLASS = { fixed: "badge--fixed", optional: "badge--optional", backup: "badge--backup" };
+
+function renderHero() {
+  document.getElementById("heroLabel").textContent    = heroData.label;
+  document.getElementById("heroTitle").textContent    = heroData.title;
+  document.getElementById("heroSubtitle").textContent = heroData.subtitle;
+  document.getElementById("heroMeta").textContent     = heroData.meta;
+  document.getElementById("siteFooter").textContent   = footerText;
+
+  /* 背景圖：有圖片才套用，否則使用預設柔和漸層 */
+  const heroEl = document.getElementById("hero");
+  const heroBgEl = document.getElementById("heroBg");
+  if (heroData.backgroundImage) {
+    heroBgEl.style.backgroundImage = `url("${heroData.backgroundImage}")`;
+    heroBgEl.setAttribute("role", "img");
+    heroBgEl.setAttribute("aria-label", heroData.backgroundAlt || "");
+    heroEl.classList.add("has-bg");
+  } else {
+    heroBgEl.style.backgroundImage = "";
+    heroEl.classList.remove("has-bg");
+  }
+}
+
+function renderDayNav() {
+  const inner = document.getElementById("dayNavInner");
+  inner.innerHTML = itineraryData.map((d, i) =>
+    `<button class="day-nav__btn" data-target="day${i+1}">${escapeHTML(d.day)}</button>`
+  ).join("");
+}
+
+/* ---------- Day Cover ---------- */
+function renderDayCover(day) {
+  if (day.coverImage) {
+    return `
+      <div class="day__cover">
+        <img src="${escapeHTML(day.coverImage)}" alt="${escapeHTML(day.coverAlt || day.title || "")}" loading="lazy" />
+      </div>
+    `;
+  }
+  return `
+    <div class="day__cover">
+      <div class="day__cover-placeholder">
+        <span>${escapeHTML(day.coverAlt || day.title || "COVER IMAGE")}</span>
+      </div>
+    </div>
+  `;
+}
+
+/* ---------- Day Hotel ---------- */
+function renderDayHotel(hotel) {
+  if (!hotel || !hotel.name) return "";
+  if (hotel.mapLink) {
+    return `
+      <div class="day__hotel-wrap">
+        <a class="day__hotel-link is-link" href="${escapeHTML(hotel.mapLink)}" target="_blank" rel="noopener">
+          ${escapeHTML(hotel.name)}
+        </a>
+      </div>
+    `;
+  }
+  return `
+    <div class="day__hotel-wrap">
+      <span class="day__hotel-link">${escapeHTML(hotel.name)}</span>
+    </div>
+  `;
+}
+
+/* ---------- Day Tabs ---------- */
+function renderDayTabs(idx) {
+  const tabs = [
+    { key: "schedule", label: "行程" },
+    { key: "intro",    label: "介紹" },
+    { key: "souvenir", label: "伴手禮" },
+    { key: "notes",    label: "備註" },
+  ];
+  return `
+    <div class="day-tabs" role="tablist" aria-label="Day ${idx} 子分頁">
+      ${tabs.map((t, i) => `
+        <button class="day-tab ${i === 0 ? "is-active" : ""}"
+                data-tab="${t.key}"
+                role="tab"
+                aria-selected="${i === 0 ? "true" : "false"}">
+          ${t.label}
+        </button>
+      `).join("")}
+    </div>
+  `;
+}
+
+/* ---------- Day Panels ---------- */
+function renderDayPanels(day) {
+  const scheduleHTML = `
+    <div class="day-panel" data-panel="schedule">
+      <div class="timeline">
+        ${(day.schedule || []).map(renderTripCard).join("")}
+      </div>
+    </div>
+  `;
+
+  const introHTML = `
+    <div class="day-panel" data-panel="intro" hidden>
+      <div class="intro-grid">
+        ${(day.introCards || []).map(renderIntroCard).join("")}
+      </div>
+    </div>
+  `;
+
+  const souvenirHTML = `
+    <div class="day-panel" data-panel="souvenir" hidden>
+      <div class="souvenir-list">
+        ${(day.souvenirs || []).map(renderSouvenir).join("")}
+      </div>
+    </div>
+  `;
+
+  const notesInner = (day.extraNotes && day.extraNotes.length)
+    ? `<ul class="extra-notes">
+         ${day.extraNotes.map(n => `<li>${escapeHTML(n)}</li>`).join("")}
+       </ul>`
+    : `<div class="extra-notes extra-notes--empty">（尚無備註）</div>`;
+
+  const notesHTML = `
+    <div class="day-panel" data-panel="notes" hidden>
+      ${notesInner}
+    </div>
+  `;
+
+  return scheduleHTML + introHTML + souvenirHTML + notesHTML;
+}
+
+/* ---------- Render Days ---------- */
+function renderDays() {
+  const container = document.getElementById("daysContainer");
+  container.innerHTML = itineraryData.map((day, i) => {
+    const idx = i + 1;
+    return `
+      <section class="day" id="day${idx}">
+        <div class="day__inner">
+          <header class="day__header">
+            <span class="day__tag">DAY ${String(idx).padStart(2,"0")}</span>
+            <span class="day__date">${escapeHTML(day.date || "")}</span>
+            <h2 class="day__title">${escapeHTML(day.title || "")}</h2>
+            <p class="day__subtitle">${escapeHTML(day.subtitle || "")}</p>
+          </header>
+
+          <div class="day__module">
+            ${renderDayCover(day)}
+            ${renderDayHotel(day.hotel)}
+            ${renderDayTabs(idx)}
+            ${renderDayPanels(day)}
+          </div>
+        </div>
+      </section>
+    `;
+  }).join("");
+}
+
+/* ---------- Trip Card ---------- */
+function renderTripCard(item, idx) {
+  const typeKey = item.type || "fixed";
+  const badge = `<span class="badge ${TYPE_CLASS[typeKey] || TYPE_CLASS.fixed}">${TYPE_LABEL[typeKey] || "固定"}</span>`;
+  const seq = String((idx || 0) + 1).padStart(2, "0");
+  const timeEl = item.time
+    ? `<div class="trip-card__time">${escapeHTML(item.time)}</div>`
+    : "";
+  const foodsJson = JSON.stringify(item.foods || []);
+
+  /* 地點名稱本身也能點擊開 Google Maps */
+  const placeHTML = item.mapLink
+    ? `<a class="place-link" href="${escapeHTML(item.mapLink)}" target="_blank" rel="noopener">${escapeHTML(item.place)}</a>`
+    : escapeHTML(item.place);
+
+  const mapBtn = item.mapLink
+    ? `<a class="btn-chip btn-chip--map" href="${escapeHTML(item.mapLink)}" target="_blank" rel="noopener">📍 Google Maps</a>`
+    : "";
+  const foodBtn = (item.foods && item.foods.length)
+    ? `<button class="btn-chip btn-chip--food"
+         data-food='${escapeHTML(foodsJson)}'
+         data-food-title="${escapeHTML(item.place)} · 附近吃食">
+         🍜 附近吃食
+       </button>`
+    : "";
+
+  /*
+    閱讀順序：序號 → 時間 → 地點 → 描述 → 注意事項 → 行動按鈕
+    類型徽章 (固定 / 彈性 / 備案) 移到右上角，視覺上次要
+  */
+  return `
+    <article class="trip-card">
+      <div class="trip-card__topline">
+        <span class="trip-card__seq">${seq}</span>
+        ${badge}
+      </div>
+      ${timeEl}
+      <h4 class="trip-card__name">${placeHTML}</h4>
+      ${item.description ? `<p class="trip-card__desc">${escapeHTML(item.description)}</p>` : ""}
+      ${item.note ? `<p class="trip-card__note">${escapeHTML(item.note)}</p>` : ""}
+      ${(mapBtn || foodBtn) ? `<div class="trip-card__actions">${mapBtn}${foodBtn}</div>` : ""}
+    </article>
+  `;
+}
+
+/* ---------- Intro Card ---------- */
+function renderIntroCard(card) {
+  const imgTag = card.image
+    ? `<img class="intro-card__img" src="${escapeHTML(card.image)}" alt="${escapeHTML(card.title)}" loading="lazy" />`
+    : `<div class="intro-card__img"></div>`;
+
+  const titleHTML = card.mapLink
+    ? `<a class="place-link" href="${escapeHTML(card.mapLink)}" target="_blank" rel="noopener">${escapeHTML(card.title)}</a>`
+    : escapeHTML(card.title);
+
+  return `
+    <article class="intro-card">
+      ${imgTag}
+      <div class="intro-card__body">
+        <h4 class="intro-card__name">${titleHTML}</h4>
+        <p class="intro-card__desc">${escapeHTML(card.text || "")}</p>
+      </div>
+    </article>
+  `;
+}
+
+/* ---------- Souvenir ---------- */
+function renderSouvenir(s) {
+  const nameHTML = s.mapLink
+    ? `<a class="place-link" href="${escapeHTML(s.mapLink)}" target="_blank" rel="noopener">${escapeHTML(s.name)}</a>`
+    : escapeHTML(s.name);
+
+  return `
+    <div class="souvenir-item">
+      <div class="souvenir-item__name">${nameHTML}</div>
+      <div class="souvenir-item__desc">${escapeHTML(s.description || "")}</div>
+      ${s.mapLink
+        ? `<a class="souvenir-item__map" href="${escapeHTML(s.mapLink)}" target="_blank" rel="noopener">Google Maps</a>`
+        : ""}
+    </div>
+  `;
+}
+
+/* ---------- Day 頂部 pill 導覽 ---------- */
+function bindDayNav() {
+  const navEl = document.getElementById("dayNav");
+  const navInner = document.getElementById("dayNavInner");
+  const btns = document.querySelectorAll(".day-nav__btn");
+
+  btns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const target = document.getElementById(btn.dataset.target);
+      if (!target) return;
+      const y = target.getBoundingClientRect().top + window.pageYOffset - navEl.offsetHeight + 1;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    });
+  });
+
+  const dayIds = Array.from(btns).map(b => b.dataset.target);
+  function updateActive() {
+    const scrollY = window.scrollY + navEl.offsetHeight + 20;
+    let current = dayIds[0];
+    dayIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= scrollY) current = id;
+    });
+    btns.forEach(b => {
+      const isActive = b.dataset.target === current;
+      b.classList.toggle("is-active", isActive);
+      if (isActive) {
+        const btnLeft = b.offsetLeft;
+        const btnRight = btnLeft + b.offsetWidth;
+        const viewLeft = navInner.scrollLeft;
+        const viewRight = viewLeft + navInner.clientWidth;
+        if (btnLeft < viewLeft + 12) navInner.scrollTo({ left: btnLeft - 12, behavior: "smooth" });
+        else if (btnRight > viewRight - 12) navInner.scrollTo({ left: btnRight - navInner.clientWidth + 12, behavior: "smooth" });
+      }
+    });
+  }
+  window.addEventListener("scroll", updateActive, { passive: true });
+  updateActive();
+}
+
+/* ---------- Day 內部次級分頁 ---------- */
+function bindDayTabs() {
+  document.querySelectorAll(".day").forEach(daySection => {
+    const tabs   = daySection.querySelectorAll(".day-tab");
+    const panels = daySection.querySelectorAll(".day-panel");
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        const target = tab.dataset.tab;
+
+        tabs.forEach(t => {
+          const active = t === tab;
+          t.classList.toggle("is-active", active);
+          t.setAttribute("aria-selected", active ? "true" : "false");
+        });
+
+        panels.forEach(p => {
+          if (p.dataset.panel === target) p.removeAttribute("hidden");
+          else p.setAttribute("hidden", "");
+        });
+      });
+    });
+  });
+}
+
+/* ---------- 附近吃食 Modal ---------- */
+function bindModal() {
+  const modal = document.getElementById("foodModal");
+  const titleEl = document.getElementById("foodModalTitle");
+  const listEl = document.getElementById("foodModalList");
+
+  /* 用事件委派：即便按鈕藏在 hidden 分頁中也能觸發 */
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".btn-chip--food");
+    if (!btn) return;
+
+    const title = btn.dataset.foodTitle || "附近吃食";
+    let items = [];
+    try { items = JSON.parse(btn.dataset.food || "[]"); }
+    catch (err) { console.error("food JSON parse error:", err); }
+
+    titleEl.textContent = title;
+    listEl.innerHTML = items.length
+      ? items.map(item => {
+          const nameHTML = item.mapLink
+            ? `<a class="modal__item-name-link" href="${escapeHTML(item.mapLink)}" target="_blank" rel="noopener">${escapeHTML(item.name || "")}</a>`
+            : escapeHTML(item.name || "");
+          return `
+            <li class="modal__item">
+              <div class="modal__item-head">
+                <span class="modal__item-name">${nameHTML}</span>
+                ${item.mapLink ? `<a class="modal__item-map" href="${escapeHTML(item.mapLink)}" target="_blank" rel="noopener">Google Maps</a>` : ""}
+              </div>
+              ${item.info ? `<div class="modal__item-desc">${escapeHTML(item.info)}</div>` : ""}
+            </li>
+          `;
+        }).join("")
+      : `<li class="modal__item"><div class="modal__item-desc" style="color:var(--color-text-light)">尚無資料，可於 itineraryData 對應景點的 foods 陣列新增。</div></li>`;
+
+    modal.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+  });
+
+  modal.querySelectorAll("[data-modal-close]").forEach(el => {
+    el.addEventListener("click", closeModal);
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+  });
+  function closeModal() {
+    modal.classList.remove("is-open");
+    document.body.style.overflow = "";
+  }
+}
+
+function init() {
+  renderHero();
+  renderDayNav();
+  renderDays();
+  bindDayNav();
+  bindDayTabs();
+  bindModal();
+}
+document.addEventListener("DOMContentLoaded", init);
+</script>
+
+</body>
+</html>
