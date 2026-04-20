@@ -295,18 +295,110 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .section-heading__line { flex: 1; height: 1px; background: var(--color-border); }
 
 /* ---------- 行程時間軸 ---------- */
-.timeline { display: flex; flex-direction: column; gap: 14px; }
-.trip-card { background: var(--color-card); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 18px 18px 16px; box-shadow: var(--shadow-card); transition: box-shadow 0.25s ease, transform 0.25s ease; }
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-left: 22px;
+}
+/* 左側淡粉色垂直引導線（上下漸隱，不搶戲） */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 14px;
+  bottom: 14px;
+  width: 1px;
+  background: linear-gradient(180deg, transparent 0%, var(--color-sakura) 10%, var(--color-sakura) 90%, transparent 100%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.trip-card {
+  position: relative;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 16px 18px 16px;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
 .trip-card:active { transform: scale(0.995); }
 
-.badge { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; padding: 3px 9px; border-radius: 999px; line-height: 1.6; margin-right: 8px; vertical-align: 1px; }
-.badge--fixed    { color: #6a4f52; background: var(--color-sakura-soft); border: 1px solid var(--color-sakura); }
-.badge--optional { color: #4a5c6b; background: var(--color-blue-soft);   border: 1px solid #c9d5df; }
-.badge--backup   { color: #4f6352; background: var(--color-green-soft);  border: 1px solid #c2d0bd; }
+/* 與時間軸相連的小圓點 */
+.trip-card::before {
+  content: "";
+  position: absolute;
+  left: -21px;
+  top: 22px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-card);
+  border: 1.5px solid var(--color-sakura);
+}
 
+/* 類型徽章：小巧、次要，作為輔助資訊停在右上 */
+.badge {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  padding: 2px 9px;
+  border-radius: 999px;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+.badge--fixed    { color: #8a6f72; background: var(--color-sakura-soft); border: 1px solid var(--color-sakura); }
+.badge--optional { color: #6a7c8b; background: var(--color-blue-soft);   border: 1px solid #c9d5df; }
+.badge--backup   { color: #6f8372; background: var(--color-green-soft);  border: 1px solid #c2d0bd; }
+
+/* 卡片最上方一列：左序號、右徽章 */
+.trip-card__topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  min-height: 18px;
+}
+
+/* 序號 01 / 02 / 03 — 低調但清晰 */
+.trip-card__seq {
+  font-family: var(--font-serif);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  color: var(--color-accent);
+  opacity: 0.85;
+}
+
+/* 時間：獨立一行、字級稍大、無 pill 背景以強調順序感 */
+.trip-card__time {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+  padding: 0;
+  background: transparent;
+}
+
+/* 地點名稱：主角 */
+.trip-card__name {
+  display: block;
+  font-size: 16.5px;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.55;
+  margin-top: 2px;
+}
+
+/* 舊的 trip-card__head 樣式保留相容，新結構已不使用 */
 .trip-card__head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-bottom: 10px; }
-.trip-card__time { display: inline-flex; align-items: center; font-family: var(--font-serif); font-size: 13px; color: var(--color-accent); letter-spacing: 0.08em; background: var(--color-sakura-soft); padding: 3px 10px; border-radius: 999px; }
-.trip-card__name { width: 100%; font-size: 16.5px; font-weight: 600; color: var(--color-text); line-height: 1.55; margin-top: 2px; }
 
 /* 可點擊的地點名稱（通用） */
 .place-link {
@@ -1480,10 +1572,13 @@ function renderDays() {
 }
 
 /* ---------- Trip Card ---------- */
-function renderTripCard(item) {
+function renderTripCard(item, idx) {
   const typeKey = item.type || "fixed";
   const badge = `<span class="badge ${TYPE_CLASS[typeKey] || TYPE_CLASS.fixed}">${TYPE_LABEL[typeKey] || "固定"}</span>`;
-  const timeEl = item.time ? `<span class="trip-card__time">${escapeHTML(item.time)}</span>` : "";
+  const seq = String((idx || 0) + 1).padStart(2, "0");
+  const timeEl = item.time
+    ? `<div class="trip-card__time">${escapeHTML(item.time)}</div>`
+    : "";
   const foodsJson = JSON.stringify(item.foods || []);
 
   /* 地點名稱本身也能點擊開 Google Maps */
@@ -1502,12 +1597,18 @@ function renderTripCard(item) {
        </button>`
     : "";
 
+  /*
+    閱讀順序：序號 → 時間 → 地點 → 描述 → 注意事項 → 行動按鈕
+    類型徽章 (固定 / 彈性 / 備案) 移到右上角，視覺上次要
+  */
   return `
     <article class="trip-card">
-      <div class="trip-card__head">
-        ${badge}${timeEl}
-        <h4 class="trip-card__name">${placeHTML}</h4>
+      <div class="trip-card__topline">
+        <span class="trip-card__seq">${seq}</span>
+        ${badge}
       </div>
+      ${timeEl}
+      <h4 class="trip-card__name">${placeHTML}</h4>
       ${item.description ? `<p class="trip-card__desc">${escapeHTML(item.description)}</p>` : ""}
       ${item.note ? `<p class="trip-card__note">${escapeHTML(item.note)}</p>` : ""}
       ${(mapBtn || foodBtn) ? `<div class="trip-card__actions">${mapBtn}${foodBtn}</div>` : ""}
