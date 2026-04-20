@@ -181,16 +181,88 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   transform: translateY(-1px);
 }
 
-/* ---------- Day 大區塊 ---------- */
-.day { padding: 40px 20px 52px; }
+/* ---------- Day 大區塊 — 章節容器 ---------- */
+.day {
+  position: relative;
+  padding: 48px 20px 56px;
+}
 .day:nth-child(even) { background: var(--color-bg-soft); }
 .day__inner { max-width: var(--max-width); margin: 0 auto; }
 
-.day__header { margin-bottom: 18px; }
-.day__tag { display: inline-block; font-size: 11px; letter-spacing: 0.32em; color: var(--color-accent); margin-bottom: 8px; }
-.day__date { display: block; font-size: 13px; color: var(--color-text-light); letter-spacing: 0.08em; margin-bottom: 6px; }
-.day__title { font-family: var(--font-serif); font-size: clamp(1.45rem, 4.5vw, 1.8rem); font-weight: 500; color: var(--color-text); margin-bottom: 6px; line-height: 1.45; }
-.day__subtitle { color: var(--color-text-soft); font-size: 14px; }
+/* 章節之間的微小分隔：頂端浮現一段淡淡的短線 */
+.day + .day::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-sakura), transparent);
+  opacity: 0.7;
+}
+
+/* ---------- Day Header — 章節開場 ---------- */
+.day__header {
+  position: relative;
+  margin-bottom: 22px;
+  padding-bottom: 20px;
+}
+/* header 下方小色塊短線，和下面的 module 區分開 */
+.day__header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--color-sakura);
+  opacity: 0.65;
+  border-radius: 2px;
+}
+.day__tag {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  color: var(--color-accent);
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+.day__date {
+  display: block;
+  font-size: 12.5px;
+  color: var(--color-text-light);
+  letter-spacing: 0.2em;
+  margin-bottom: 12px;
+}
+.day__title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.55rem, 4.8vw, 1.9rem);
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.day__subtitle {
+  color: var(--color-text-soft);
+  font-size: 14.5px;
+  line-height: 1.75;
+}
+
+/* ---------- Day Module — 把當天所有內容收進一張章節卡片 ---------- */
+.day__module {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 14px 14px 22px;
+  box-shadow: 0 2px 16px rgba(90, 70, 75, 0.05);
+}
+.day:nth-child(even) .day__module {
+  background: var(--color-card);
+  border-color: var(--color-border);
+}
 
 /* ---------- Day 大圖封面 ---------- */
 .day__cover {
@@ -250,21 +322,24 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin-left: 2px;
 }
 
-/* ---------- Day 次級分頁按鈕 ---------- */
+/* ---------- Day 次級分頁按鈕 — 控制面板感 ---------- */
 .day-tabs {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
+  gap: 4px;
   padding: 5px;
   background: var(--color-bg-soft);
   border: 1px solid var(--color-border);
-  border-radius: 14px;
+  border-radius: 12px;
   margin-bottom: 22px;
+  /* 內凹質感：像被按進 module 的控制條 */
+  box-shadow: inset 0 1px 2px rgba(90, 70, 75, 0.06);
 }
-.day:nth-child(even) .day-tabs { background: var(--color-bg); }
+/* 偶數日 module 仍是白底，所以不再切換 */
+.day:nth-child(even) .day-tabs { background: var(--color-bg-soft); }
 .day-tab {
   padding: 11px 4px;
-  border-radius: 10px;
+  border-radius: 9px;
   font-size: 14px;
   letter-spacing: 0.08em;
   color: var(--color-text-soft);
@@ -277,7 +352,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   background: var(--color-card);
   color: var(--color-accent);
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(90,70,75,0.07);
+  /* 比原本明確：浮起的卡片 + 細的 accent 環，但仍維持柔和色調 */
+  box-shadow:
+    0 2px 6px rgba(90, 70, 75, 0.08),
+    inset 0 0 0 1px rgba(184, 132, 138, 0.3);
 }
 
 /* ---------- 分頁內容面板 ---------- */
@@ -478,7 +556,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* ---------- 桌機微調 ---------- */
 @media (min-width: 720px) {
   .hero { padding: 110px 24px 90px; min-height: 62vh; }
-  .day { padding: 56px 24px 64px; }
+  .day { padding: 64px 24px 72px; }
+  .day__header { margin-bottom: 26px; padding-bottom: 22px; }
+  .day__module { padding: 20px 20px 28px; border-radius: 22px; }
   .trip-card { padding: 22px 24px 20px; }
   .intro-grid, .souvenir-list { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .intro-card__img { aspect-ratio: 4 / 3; }
@@ -1561,10 +1641,12 @@ function renderDays() {
             <p class="day__subtitle">${escapeHTML(day.subtitle || "")}</p>
           </header>
 
-          ${renderDayCover(day)}
-          ${renderDayHotel(day.hotel)}
-          ${renderDayTabs(idx)}
-          ${renderDayPanels(day)}
+          <div class="day__module">
+            ${renderDayCover(day)}
+            ${renderDayHotel(day.hotel)}
+            ${renderDayTabs(idx)}
+            ${renderDayPanels(day)}
+          </div>
         </div>
       </section>
     `;
