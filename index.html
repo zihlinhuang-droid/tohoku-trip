@@ -372,28 +372,66 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .section-heading__title { font-size: 15px; font-weight: 600; color: var(--color-text); letter-spacing: 0.05em; }
 .section-heading__line { flex: 1; height: 1px; background: var(--color-border); }
 
-/* ---------- 行程時間軸 ---------- */
+/* ---------- 行程時間軸（雙欄：左時間 / 右內容） ---------- */
 .timeline {
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding-left: 22px;
+  padding: 0;
 }
-/* 左側淡粉色垂直引導線（上下漸隱，不搶戲） */
+/* 貫穿時間軸的垂直引導線：位於時間欄與內容欄之間 */
 .timeline::before {
   content: "";
   position: absolute;
-  left: 5px;
-  top: 14px;
-  bottom: 14px;
+  left: 78px;               /* 對齊時間欄右側外側 */
+  top: 16px;
+  bottom: 16px;
   width: 1px;
   background: linear-gradient(180deg, transparent 0%, var(--color-sakura) 10%, var(--color-sakura) 90%, transparent 100%);
   opacity: 0.6;
   pointer-events: none;
 }
 
+/* 單筆行程 = 雙欄 grid；本身透明，視覺交給右側內容卡 */
 .trip-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 16px;
+  align-items: stretch;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+.trip-card:active { transform: none; }
+
+/* 左側時間欄：序號（小）+ 時間標籤（主），整體靠右對齊 */
+.trip-card__time-col {
+  position: relative;
+  padding-top: 16px;
+  text-align: right;
+  min-width: 0;
+}
+/* 時間欄外側圓點，落在垂直引導線上 */
+.trip-card__time-col::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: 22px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-card);
+  border: 1.5px solid var(--color-sakura);
+  box-shadow: 0 0 0 3px var(--color-card);
+  z-index: 1;
+}
+
+/* 右側內容欄：卡片樣式（原 .trip-card 的視覺） */
+.trip-card__content {
   position: relative;
   background: var(--color-card);
   border: 1px solid var(--color-border);
@@ -401,23 +439,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding: 16px 18px 16px;
   box-shadow: var(--shadow-card);
   transition: box-shadow 0.25s ease, transform 0.25s ease;
+  min-width: 0;
 }
-.trip-card:active { transform: scale(0.995); }
+.trip-card:active .trip-card__content { transform: scale(0.995); }
 
-/* 與時間軸相連的小圓點 */
-.trip-card::before {
-  content: "";
-  position: absolute;
-  left: -21px;
-  top: 22px;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--color-card);
-  border: 1.5px solid var(--color-sakura);
-}
-
-/* 類型徽章：小巧、次要，作為輔助資訊停在右上 */
+/* 類型徽章：小巧、次要 */
 .badge {
   display: inline-block;
   font-size: 10.5px;
@@ -432,40 +458,43 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .badge--optional { color: #6a7c8b; background: var(--color-blue-soft);   border: 1px solid #c9d5df; }
 .badge--backup   { color: #6f8372; background: var(--color-green-soft);  border: 1px solid #c2d0bd; }
 
-/* 卡片最上方一列：左序號、右徽章 */
-.trip-card__topline {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 6px;
-  min-height: 18px;
+/* 徽章停駐於內容欄右上角 */
+.trip-card__content .badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
 }
 
-/* 序號 01 / 02 / 03 — 低調但清晰 */
+/* 序號 01 / 02 / 03 — 放在時間欄上方，極低調 */
 .trip-card__seq {
+  display: block;
   font-family: var(--font-serif);
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 500;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.22em;
   color: var(--color-accent);
-  opacity: 0.85;
+  opacity: 0.8;
+  margin-bottom: 4px;
 }
 
-/* 時間：獨立一行、字級稍大、無 pill 背景以強調順序感 */
+/* 時間 / 時段：時間欄主訊息 */
 .trip-card__time {
   display: block;
   font-family: var(--font-serif);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--color-text);
-  letter-spacing: 0.05em;
-  margin-bottom: 4px;
-  padding: 0;
-  background: transparent;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.trip-card__time-col--empty .trip-card__time {
+  color: var(--color-text-light);
+  font-weight: 400;
+  letter-spacing: 0.08em;
 }
 
-/* 地點名稱：主角 */
+/* 地點名稱：主角；右側留白避免與徽章重疊 */
 .trip-card__name {
   display: block;
   font-size: 16.5px;
@@ -473,10 +502,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: var(--color-text);
   line-height: 1.55;
   margin-top: 2px;
+  padding-right: 60px;
 }
 
-/* 舊的 trip-card__head 樣式保留相容，新結構已不使用 */
+/* 舊的結構樣式保留相容（新結構已不使用） */
 .trip-card__head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-bottom: 10px; }
+.trip-card__topline { display: none; }
 
 /* 可點擊的地點名稱（通用） */
 .place-link {
@@ -518,15 +549,37 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .intro-card__img { aspect-ratio: 16 / 9; width: 100%; object-fit: cover; background: linear-gradient(135deg, var(--color-sakura-soft), var(--color-green-soft)); }
 .intro-card__body { padding: 14px 16px 16px; }
 .intro-card__name { font-size: 15.5px; font-weight: 600; margin-bottom: 6px; color: var(--color-text); }
-.intro-card__desc { font-size: 13.5px; color: var(--color-text-soft); line-height: 1.85; }
+.intro-card__desc { font-size: 13.5px; color: var(--color-text-soft); line-height: 1.85; white-space: pre-line; }
 
 /* ---------- 伴手禮 ---------- */
 .souvenir-list { display: grid; grid-template-columns: 1fr; gap: 12px; }
 .souvenir-item { background: var(--color-card); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 14px 16px; }
 .souvenir-item__name { font-size: 15px; font-weight: 600; color: var(--color-text); margin-bottom: 4px; }
-.souvenir-item__desc { font-size: 13.5px; color: var(--color-text-soft); line-height: 1.85; margin-bottom: 10px; }
+.souvenir-item__desc { font-size: 13.5px; color: var(--color-text-soft); line-height: 1.85; margin-bottom: 10px; white-space: pre-line; }
 .souvenir-item__map { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--color-accent); padding: 5px 11px; border: 1px solid var(--color-sakura); border-radius: 999px; min-height: 32px; }
 .souvenir-item__map:hover, .souvenir-item__map:active { background: var(--color-sakura-soft); }
+
+/* ---------- 伴手禮：哪裡買 導引 ---------- */
+.souvenir-note {
+  background: var(--color-sakura-soft);
+  border: 1px solid var(--color-sakura);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  font-size: 13.5px;
+  line-height: 1.85;
+  color: var(--color-text);
+  white-space: pre-line;
+}
+.souvenir-note__label {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: 11px;
+  color: var(--color-accent);
+  letter-spacing: 0.24em;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
 
 /* ---------- Modal ---------- */
 .modal { position: fixed; inset: 0; z-index: 100; display: none; align-items: flex-end; justify-content: center; }
@@ -559,7 +612,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .day { padding: 64px 24px 72px; }
   .day__header { margin-bottom: 26px; padding-bottom: 22px; }
   .day__module { padding: 20px 20px 28px; border-radius: 22px; }
-  .trip-card { padding: 22px 24px 20px; }
+  .timeline::before { left: 94px; }
+  .trip-card { grid-template-columns: 88px 1fr; gap: 18px; }
+  .trip-card__time-col { padding-top: 18px; }
+  .trip-card__time-col::after { right: -11px; top: 24px; }
+  .trip-card__content { padding: 22px 24px 20px; }
+  .trip-card__time { font-size: 15px; }
+  .trip-card__name { padding-right: 72px; }
   .intro-grid, .souvenir-list { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .intro-card__img { aspect-ratio: 4 / 3; }
   .day__cover { aspect-ratio: 21 / 9; }
@@ -697,7 +756,7 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "11:35–16:00",
+        time: "11:35",
         place: "班機 JX862 台北 → 仙台",
         mapLink: "",
         description: "",
@@ -706,8 +765,17 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "",
-        place: "中餐：飛機餐",
+        time: "中餐",
+        place: "飛機餐",
+        mapLink: "",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "16:00",
+        place: "班機 JX862 抵達仙台",
         mapLink: "",
         description: "",
         note: "",
@@ -758,14 +826,66 @@ const itineraryData = [
       }
     ],
     introCards: [
-      { title: "仙台市區初印象", image: "", mapLink: "https://maps.google.com/?q=仙台市", text: "（placeholder）杜之都仙台，街道綠意盎然，是旅人進入東北的第一站。可填寫第一印象。" },
-      { title: "仙台櫻花散策",   image: "", mapLink: "https://maps.google.com/?q=西公園+仙台", text: "（placeholder）西公園與榴岡公園是仙台市區兩大賞櫻名所，春日散步氣氛舒服。" }
+      {
+        title: "仙台｜杜之都的歷史與日常",
+        image: "",
+        mapLink: "https://maps.google.com/?q=仙台市",
+        text: "仙台位於日本東北地區，是宮城縣的中心城市，因街道遍植櫸樹與綠蔭而有「杜之都」之稱。這座城市的發展可追溯至戰國時代，由戰國大名伊達政宗於 1600 年代初建立城下町，並以青葉山為據點築起仙台城，奠定今日城市格局。雖然城郭本體已不復存在，但從青葉城跡俯瞰市區，仍可清楚感受到當年依地勢規劃的城市輪廓。\n\n仙台兼具歷史與現代機能，車站周邊商業發達，而稍微離開市中心，便能進入節奏較慢的生活區與自然景觀。市內如瑞鳳殿、仙台東照宮等地，保存著伊達家相關的歷史遺跡，也反映出武家文化在東北的延續。\n\n在地飲食方面，仙台最具代表性的就是「牛舌（牛タン）」，起源於戰後，經過炭火燒烤後外脆內嫩，搭配麥飯與牛尾湯，是極具地方特色的一餐。此外，仙台也鄰近松島與藏王等自然景點，使其成為東北旅行的重要樞紐。\n\n仙台並非強烈觀光導向的城市，而是以一種穩定、宜居的節奏存在。走在林蔭大道之間，會發現這座城市的魅力，不在於單一景點，而是在歷史與日常之間自然流動的平衡感。"
+      },
+      {
+        title: "仙台牛舌｜從戰後料理到城市代表味",
+        image: "",
+        mapLink: "",
+        text: "仙台牛舌的起源可追溯至戰後不久的 1948 年。當時日本物資匱乏，肉類取得不易，一位名為佐野啓四郎的料理人，在仙台開設餐廳時，嘗試利用當時較少人食用的牛舌部位，開發出全新的料理方式。他將牛舌切厚、以鹽調味後用炭火燒烤，並搭配麥飯、牛尾湯與漬物，形成今日熟知的「牛舌定食」雛形。\n\n這種料理方式一方面能保留牛舌的彈性與肉汁，另一方面也符合當時「物盡其用」的飲食背景，很快在當地受到歡迎。隨著仙台戰後重建與城市發展，牛舌逐漸從庶民料理轉變為地方特色，並發展出各店不同的切法、熟成與燒烤技術。\n\n如今的仙台牛舌，多以厚切、炭火燒烤為特色，外層微脆、內部柔嫩，已成為來訪仙台幾乎必嚐的代表性美食。從戰後創意到今日職人技術的累積，牛舌不僅是一道料理，也是一段屬於仙台的城市記憶。"
+      },
+      {
+        title: "仙台牛｜宮城風土孕育的高級和牛",
+        image: "",
+        mapLink: "",
+        text: "使用宮城縣特有的高級米品種「笹錦米」、「純情米」，以及稻草、大麥等為飼料的仙台牛，油花分布均勻，入口口感細緻。年間產量約 2 萬頭的仙台牛，有 4 大認定要項，包含：須為黑毛和種、須為生產登錄農家，且在縣內以妥善方式管理養育，須經日本食肉格付協會（JMGA）評定為 A5、B5 等級，只有「仙台牛」銘柄推進協議會認定市場。若想感受仙台牛魅力，分布於商店街的各家鐵板屋、燒肉餐廳、涮涮鍋餐廳都有標榜仙台牛（等級 A5、B5）、仙台黑毛和牛（等級 A4、A3、B4、B3、C5）為主的選擇。"
+      },
+      {
+        title: "毛豆泥｜仙台甜味記憶的延伸",
+        image: "",
+        mapLink: "",
+        text: "毛豆泥（ずんだ）是宮城縣，特別是仙台與南東北地區相當具代表性的鄉土風味。所謂「ずんだ」，通常是將煮熟的毛豆去皮後搗碎，再拌入糖與少許鹽調味，做成帶有豆香與自然甜味的餡料，最常見的吃法就是包覆或拌上麻糬，成為「毛豆泥麻糬（ずんだ餅）」。\n\n毛豆泥之所以成為仙台的傳統料理，和宮城一帶長久以來的農作與飲食習慣有關。東北地區本就有食用豆類、麻糬與季節性米食的文化，而毛豆在夏末秋初盛產，容易取得，也適合加工保存。將毛豆搗成泥後搭配現做麻糬，不只是順應時令的吃法，也逐漸成為節慶、祭事與家庭聚會中常見的味道。\n\n仙台除了毛豆泥麻糬以外，也發展出各種以毛豆泥為靈感的甜點與飲品。創業超過 140 年的老店「村上屋餅店」，祖先為伊達政宗御用的甜點師傅，經過代代相傳，至今仍是仙台知名排隊名店。近年因出現在動畫《咒術迴戰》中而人氣高升的毛豆泥鮮奶油大福「喜久福」，則是仙台百年老店「お茶の井ヶ田 喜久水庵」的代表商品之一。\n\n如果想從現代仙台的日常來感受毛豆泥文化，也可以從幾種常見品項開始：\n- 毛豆奶昔：ずんだ茶寮、玉澤總本店（＋豆奶）\n- 毛豆冰淇淋：喜久水庵 ずんだ茶屋",
+        links: [
+          { name: "村上屋餅店", url: "https://maps.google.com/?q=村上屋餅店+仙台" },
+          { name: "お茶の井ヶ田 喜久水庵", url: "https://maps.google.com/?q=お茶の井ヶ田+喜久水庵+仙台" },
+          { name: "ずんだ茶寮", url: "https://maps.google.com/?q=ずんだ茶寮+仙台" },
+          { name: "玉澤總本店", url: "https://maps.google.com/?q=玉澤總本店+仙台" },
+          { name: "喜久水庵 ずんだ茶屋", url: "https://maps.google.com/?q=喜久水庵+ずんだ茶屋+仙台" }
+        ]
+      }
     ],
     souvenirs: [
-      { name: "仙台車站伴手禮", mapLink: "https://maps.google.com/?q=仙台車站+伴手禮", description: "（placeholder）仙台車站本身就是伴手禮寶庫，可一次收集多家。" },
-      { name: "牛舌相關伴手禮", mapLink: "",                                           description: "（placeholder）牛舌零食、真空包、仙貝等。" },
-      { name: "其他伴手禮",     mapLink: "",                                           description: "（placeholder）可填萩の月、毛豆點心等。" }
+      {
+        name: "萩之月",
+        mapLink: "https://maps.google.com/?q=萩の月+仙台",
+        description: "菓匠三全於 1979 年推出的點心，因受到松任谷由實、羽生結弦等名人喜愛而廣為人知。外層為帶有蜂蜜蛋糕感的柔軟蛋糕體，內餡為黃色卡士達，甜而不膩。一般常溫保存即可，冷藏後口感更添層次，是仙台最具代表性的經典名產之一。"
+      },
+      {
+        name: "霜柱",
+        mapLink: "https://maps.google.com/?q=九重本舖玉澤+エスパル店+仙台",
+        description: "僅於每年秋冬製造販售。「霜柱」正如其名，以自然界中霜柱的結晶為意象，呈現白色細絲狀的糖片模樣，入口即化，視覺與口感都令人印象深刻，是非常有辨識度的仙台名產。\n\n建議購買地點：九重本舖玉澤 エスパル店（仙台車站 B1）"
+      },
+      {
+        name: "仙台 Makoron",
+        mapLink: "https://maps.google.com/?q=仙台+マコロン+伊藤食品工業",
+        description: "伊藤食品工業推出的 Makoron，是以雞蛋、小麥粉、花生等原料製作的點心。外型約為乒乓球對切大小，中間中空，口感略帶酥鬆，花生香氣明顯，是適合搭配下午茶的日常型點心。"
+      },
+      {
+        name: "支倉燒",
+        mapLink: "https://maps.google.com/?q=支倉焼+富士屋+仙台",
+        description: "出自仙台藩為紀念遣歐使節副使「支倉常長」而命名，由富士屋於 1958 年推出，屬於兼具歷史背景與地方代表性的仙台經典點心。"
+      },
+      {
+        name: "KitKat：毛豆茶寮毛豆泥奶昔口味",
+        mapLink: "https://maps.google.com/?q=KitKat+ずんだ茶寮+仙台",
+        description: "巧克力 KitKat 與來仙台必喝的「毛豆泥奶昔」合作推出東北限定口味。外層為毛豆泥奶昔風味白巧克力，內餡加入毛豆粉鮮奶油，是比較偏限定、話題型的伴手禮。"
+      }
     ],
+    souvenirNote: "仙台伴手禮去哪買？可優先查看仙台車站內的「S-PAL 仙台」：\n\n・地下 1 樓 土產通（エキチカおみやげ通り）：有 49 間販售東北、宮城伴手禮的店家\n・東館 2 樓 伊達小路（伊達のこみち）：以宮城縣名產為主\n・若要找霜柱，可留意九重本舖玉澤 エスパル店（仙台車站 B1）",
     extraNotes: [
       "第一天重點是順利抵達、會合、入住與簡單晚餐",
       "仙台站周邊散步與藥妝採買可視體力與時間調整"
@@ -776,10 +896,10 @@ const itineraryData = [
   {
     day: "Day 2",
     date: "2026/04/26（日）",
-    title: "仙台",
-    subtitle: "仙台市區散策",
+    title: "仙台 → 松島 → 仙台",
+    subtitle: "松島海岸散步、五大堂、午餐後回仙台，下午與晚間保留彈性安排",
     coverImage: "",
-    coverAlt: "仙台朝市",
+    coverAlt: "松島海岸",
     hotel: {
       name: "仙台東大都會酒店",
       mapLink: "https://maps.google.com/?q=仙台東大都會酒店"
@@ -788,83 +908,179 @@ const itineraryData = [
       {
         type: "fixed",
         time: "",
-        place: "仙台市區",
-        mapLink: "https://maps.google.com/?q=仙台市",
-        description: "（placeholder）全日放鬆散步仙台市區。",
-        note: "（placeholder）行走路線與休息點可再補。",
+        place: "早餐：超商簡單吃",
+        mapLink: "",
+        description: "",
+        note: "",
         foods: []
       },
       {
         type: "fixed",
-        time: "早上",
-        place: "仙台朝市吃早餐",
-        mapLink: "https://maps.google.com/?q=仙台朝市",
-        description: "（placeholder）老字號市場，適合早上來吃海鮮丼或定食。",
-        note: "（placeholder）假日人潮多，建議早點到。",
+        time: "",
+        place: "出發前往松島",
+        mapLink: "https://maps.google.com/?q=松島海岸駅",
+        description: "",
+        note: "搭車至松島海岸站，約 50 分鐘。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "海岸商店街晃晃",
+        mapLink: "https://maps.google.com/?q=松島海岸+商店街",
+        description: "",
+        note: "",
         foods: [
-          { name: "coner house 仙台 咖啡", mapLink: "https://maps.google.com/?q=coner+house+仙台", info: "營業時間 placeholder ｜ 評分 placeholder ｜ 推薦原因 placeholder" },
-          { name: "charcoal jus",           mapLink: "https://maps.google.com/?q=charcoal+jus+仙台", info: "營業時間 placeholder ｜ 評分 placeholder ｜ 推薦原因 placeholder" },
-          { name: "毛豆年糕",               mapLink: "https://maps.google.com/?q=ずんだ餅+仙台",     info: "營業時間 placeholder ｜ 評分 placeholder ｜ 推薦原因 placeholder" },
-          { name: "cafe 青巴旦",            mapLink: "https://maps.google.com/?q=cafe+青巴旦+仙台",  info: "（店名以筆記原樣保留，上網再確認）" },
-          { name: "Ichifuku",               mapLink: "https://maps.google.com/?q=Ichifuku+仙台",      info: "營業時間 placeholder ｜ 評分 placeholder ｜ 推薦原因 placeholder" }
+          { name: "BLUE BAY COFFEE",                mapLink: "https://maps.google.com/?q=BLUE+BAY+COFFEE+松島",               info: "營業 11:00–17:00 ｜ 評分 4.9 ｜ 外帶為主的小店，推薦手沖。" },
+          { name: "松華堂菓子店",                    mapLink: "https://maps.google.com/?q=松華堂菓子店+松島",                  info: "營業 10:00–17:00（週二休） ｜ 評分 4.2 ｜ 可以坐著簡單休息的地方，蜂蜜蛋糕、布丁看起來都不錯。" },
+          { name: "MATSUSHIMA SANDWICH STORE",      mapLink: "https://maps.google.com/?q=MATSUSHIMA+SANDWICH+STORE+松島",     info: "營業 11:00–16:00（週三休） ｜ 評分 4.5 ｜ 滿滿的牛肉三明治，看起來很好吃，想簡單吃也是個選擇。" }
         ]
       },
       {
-        type: "optional",
+        type: "fixed",
         time: "",
-        place: "地底之森博物館",
-        mapLink: "https://maps.google.com/?q=仙台市富沢遺跡保存館",
-        description: "（placeholder）地下遺跡博物館，走動少、冷氣足，適合長輩同行。",
-        note: "（placeholder）視當天體力決定是否前往。",
+        place: "瑞巖寺五大堂",
+        mapLink: "https://maps.google.com/?q=五大堂+松島",
+        description: "",
+        note: "",
         foods: []
       },
       {
         type: "optional",
         time: "",
-        place: "仙台城（視體力與階梯狀況）",
-        mapLink: "https://maps.google.com/?q=仙台城跡",
-        description: "（placeholder）伊達政宗騎馬像所在，展望仙台市區佳。",
-        note: "（placeholder）要走階梯，如長輩膝蓋不便可改搭 loople 巴士接近或跳過。",
-        foods: []
+        place: "福浦橋",
+        mapLink: "https://maps.google.com/?q=福浦橋+松島",
+        description: "",
+        note: "多為平坦路段，約 1 km。",
+        foods: [
+          { name: "福浦島茶屋", mapLink: "https://maps.google.com/?q=福浦島茶屋+松島", info: "營業 09:30–16:00 ｜ 評分 4.2 ｜ 島上唯一一家餐廳，有簡易關東煮、烤魚板、烤麻糬，很日式、很可愛，也可簡易休息。" }
+        ]
       },
       {
         type: "fixed",
-        time: "午餐",
-        place: "午餐：牛舌",
-        mapLink: "",
-        description: "（placeholder）可從牛舌名店清單中挑選。",
-        note: "（placeholder）熱門店午餐需排隊，建議提早或錯峰。",
+        time: "中餐",
+        place: "中餐：松島市場（松島さかな市場）或餐廳",
+        mapLink: "https://maps.google.com/?q=松島さかな市場",
+        description: "",
+        note: "",
         foods: [
-          { name: "牛舌司",            mapLink: "https://maps.google.com/?q=牛舌司+仙台",         info: "（placeholder）填入細節。" },
-          { name: "伊達の牛たん本舗",  mapLink: "https://maps.google.com/?q=伊達の牛たん本舗",    info: "（placeholder）填入細節。" }
+          { name: "牡蠣海鮮料理 旬海",                mapLink: "https://maps.google.com/?q=牡蠣海鮮料理+旬海+松島",     info: "營業 11:30–14:30（週三休） ｜ 評分 4.2 ｜ 餐點多樣，不只有牡蠣，也有生魚片、丼飯、定食。" },
+          { name: "Grill Tamaya",                    mapLink: "https://maps.google.com/?q=Grill+Tamaya+松島",           info: "營業 11:00–15:00 ｜ 評分 4.3 ｜ 餐點多樣，不只有牡蠣，也有生魚片、丼飯、定食；在二樓，要爬樓梯，但風景好，正對五大堂。" },
+          { name: "松島市場（松島さかな市場）",        mapLink: "https://maps.google.com/?q=松島さかな市場",              info: "營業 08:00–16:00 ｜ 有販售海鮮、雜貨等伴手禮，也有一些小吃。" }
+        ]
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "走回松島海岸站搭車回仙台站",
+        mapLink: "https://maps.google.com/?q=松島海岸駅",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "optional",
+        time: "",
+        place: "彈性：仙台城 / 西公園 / 咖啡廳晃晃",
+        mapLink: "",
+        description: "",
+        note: "",
+        foods: [
+          { name: "Echoes", mapLink: "https://maps.google.com/?q=Echoes+cafe+仙台", info: "營業 08:00–18:00 ｜ 評分 4.1 ｜ 店員很帥，可麗露據說很厲害，西公園附近。" },
+          { name: "MILLS",  mapLink: "https://maps.google.com/?q=MILLS+cafe+仙台",  info: "營業 12:00–22:00 ｜ 評分 4.2 ｜ 環境與餐點都很棒的咖啡廳，也有賣冰淇淋，車站附近。" },
+          { name: "VON",    mapLink: "https://maps.google.com/?q=VON+cafe+仙台",    info: "營業 11:00–15:00 ｜ 評分 4.3 ｜ 甜點、咖啡、環境看起來都很棒，也有簡餐（義大利麵、咖哩），榴岡公園附近。" }
         ]
       },
       {
         type: "fixed",
         time: "晚餐",
-        place: "晚餐：牛舌",
+        place: "晚餐：牛舌或居酒屋",
         mapLink: "",
-        description: "（placeholder）再吃一次牛舌 — 可換不同店比較。",
-        note: "（placeholder）晚上熱門店同樣建議訂位。",
+        description: "",
+        note: "",
         foods: [
-          { name: "仙臺牛たん 貴 努力",         mapLink: "https://maps.google.com/?q=仙臺牛たん+貴+努力",       info: "（placeholder）填入細節。" },
-          { name: "牛舌料理 閣 Vlandome店",     mapLink: "https://maps.google.com/?q=牛舌料理+閣+Vlandome",    info: "（placeholder）填入細節。" }
+          { name: "牛たんの一仙",                    mapLink: "https://maps.google.com/?q=牛たんの一仙+仙台",           info: "營業 11:00–22:00 ｜ 評分 4.4 ｜ 碳香明顯，牛舌有嚼勁，份量大，推薦厚切；吉利可吃牛舌燉煮。" },
+          { name: "牛タン焼き一隆 本店",              mapLink: "https://maps.google.com/?q=牛タン焼き一隆+本店+仙台",   info: "營業 11:30–13:30、18:00–19:30（週日休） ｜ 評分 4.5 ｜ 牛舌可點正常跟瘦肉各半，推薦燉牛舌；吉利可吃味增豬排。" },
+          { name: "烤牛舌 善治郎 仙台站前本店",       mapLink: "https://maps.google.com/?q=善治郎+仙台駅前本店",         info: "營業 11:00–23:00 ｜ 評分 4.3 ｜ 餐點口味多樣，推薦厚切牛舌、牛舌香腸、牛舌煎餃、燒烤牛橫隔膜。" },
+          { name: "牛たん・和食 食事処 とら助",        mapLink: "https://maps.google.com/?q=牛たん+とら助+仙台",         info: "營業 17:00–22:00（六日休） ｜ 評分 4.3 ｜ 當地人推薦的小店，店面不大，英文不通。" },
+          { name: "仙臺牛たん 貴（タカ）",            mapLink: "https://maps.google.com/?q=仙臺牛たん+貴+仙台",          info: "營業 11:30–14:00、17:30–22:30 ｜ 評分 4.3 ｜ 當地人會吃的小餐館，推薦碳烤厚切牛舌。" },
+          { name: "牛舌料理 閣 仙台Vlandome店",       mapLink: "https://maps.google.com/?q=牛舌料理+閣+Vlandome",        info: "營業 11:30–14:00、17:30–22:00 ｜ 評分 4.5 ｜ 有包廂，料理多元，少數有牛舌刺身的店，是炙燒牛舌專門，很多人心中的第一名。" },
+          { name: "GELATI BRIO",                     mapLink: "https://maps.google.com/?q=GELATI+BRIO+仙台",             info: "營業 12:00–19:00（週一二休） ｜ 評分 4.5 ｜ 冰淇淋店，看起來很好吃，在牛舌通附近。" },
+          { name: "１８キッド",                        mapLink: "https://maps.google.com/?q=18キッド+仙台",                info: "營業 17:30–22:30（週日休） ｜ 評分 4.8 ｜ 一人居酒屋，位置不多，只接待十人以下，無菜單料理的居酒屋，照片上每一道看起來都很讚。" }
         ]
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "回到住宿整理行李",
+        mapLink: "",
+        description: "",
+        note: "拿行李寄送至函館",
+        foods: []
       }
     ],
     introCards: [
-      { title: "仙台朝市",            image: "", mapLink: "https://maps.google.com/?q=仙台朝市",     text: "（placeholder）仙台在地早市風景，海鮮與家常小吃聚集之地。" },
-      { title: "地底之森 / 仙台城",   image: "", mapLink: "https://maps.google.com/?q=仙台城跡",     text: "（placeholder）兩個彈性景點：前者是室內博物館，後者是仙台象徵城跡。" }
+      {
+        title: "松島｜四大觀之景，日本三景的觀看方式",
+        image: "",
+        mapLink: "https://maps.google.com/?q=松島",
+        text: "松島位於宮城縣東部，由約 260 座大小島嶼散布於松島灣，自古以奇岩與松林交織的景觀聞名，並與天橋立、宮島並列為「日本三景」。不同於單一景點，松島的魅力在於整體地形所形成的層層島影，而當地最具代表性的欣賞方式，便是被稱為「四大觀」的四個展望視角。\n\n所謂「四大觀」，分別是從不同位置俯瞰松島灣所感受到的四種景致：\n大高森的「壯觀」，可 360 度遠望群島與海灣，是最具代表性的全景視角；\n富山的「麗觀」，視野柔和優美，島嶼排列如畫；\n多聞山的「偉觀」，以開闊寬廣的海面與島影構成雄渾氣勢；\n扇谷的「幽觀」，則偏靜謐深邃，展現松島較為內斂的一面。\n\n這四種「觀」，並非單純地點之分，而是人們觀看自然時所產生的感受分類，也讓松島成為少數能以「視角」來理解風景的地方。\n\n除了登高遠望，旅人亦可從松島海岸搭乘觀光船，穿梭於島嶼之間，從海面重新感受這些景觀的層次變化。沿岸的瑞巖寺與五大堂，則為這片自然景致增添歷史與信仰的深度。\n\n松島的美，不在於某一瞬間的震撼，而是在不同位置、不同高度之間，慢慢堆疊出的風景理解。"
+      },
+      {
+        title: "瑞巖寺與五大堂｜松島的信仰核心與歷史象徵",
+        image: "",
+        mapLink: "https://maps.google.com/?q=瑞巖寺+五大堂+松島",
+        text: "在松島眾多島影之間，瑞巖寺與五大堂是最具歷史重量的兩處文化地標。瑞巖寺創建於平安時代，原為天台宗寺院，後於江戶初期由伊達政宗大規模重建，改為臨濟宗禪寺，並成為伊達家的菩提寺。現存本堂為國寶，建築風格融合桃山時代的華麗與禪宗的內斂，內部襖繪與雕刻細緻華美，展現出東北地區少見的高度工藝水準。\n\n通往瑞巖寺的參道兩側排列著高聳杉木，途中可見開鑿於岩壁中的洞窟群（稱為「岩窟遺跡」），曾作為僧侶修行與供養亡者之地，為整個參拜過程增添一層肅穆氛圍。\n\n距離不遠的五大堂，則是松島最具代表性的象徵之一。這座小型佛堂建於海中的小島上，供奉五大明王，是東北地區現存最古老的桃山建築之一（重要文化財）。通往堂前的木橋刻意設計成鏤空橋板，行走其上可見腳下海面，象徵在踏入神聖空間前，需保持心念專注與謹慎。\n\n相較於瑞巖寺的規模與歷史厚度，五大堂更像是一個凝縮的精神象徵。兩者一動一靜、一深一淺，共同構成了松島不只是風景名勝，更是一處承載信仰與時間的場所。"
+      },
+      {
+        title: "福浦橋｜一步一步走進松島風景之中",
+        image: "",
+        mapLink: "https://maps.google.com/?q=福浦橋+松島",
+        text: "位於松島海岸旁的福浦橋，是一座醒目的紅色步行橋，全長約 252 公尺，橫跨海面連接至對岸的福浦島。因橋身鮮紅、線條修長，也被稱為「緣結橋」，象徵連結人與人之間的情感，是松島少見可實際「走入風景」的體驗路線。\n\n走過福浦橋，視野會隨著步伐逐漸展開，兩側是松島特有的島嶼景觀與海面反光，能以不同角度觀看這片日本三景的層次。抵達福浦島後，島上設有環島步道與小型展望點，沿途被松林包圍，氛圍相對靜謐，與熱鬧的松島海岸形成對比。\n\n相較於搭船或登高遠望，福浦橋提供的是一種更貼近地面的觀看方式——一步一步走進松島的景色之中。來回約需 30 至 60 分鐘，節奏輕鬆，適合作為松島行程中的一段轉換時光。"
+      },
+      {
+        title: "魚板（笹かまぼこ）｜仙台最具代表性的日常味道",
+        image: "",
+        mapLink: "https://maps.google.com/?q=阿部蒲鉾店+仙台駅",
+        text: "仙台魚板以白肉魚製作，為竹葉造型，與其他地區略有不同。笹葉魚板的起源，最早可追溯至 1935 年，由當地魚板老字號阿部蒲鉾店開始製造，典故則是來自伊達藩主伊達政宗家徽中的竹葉而來。隨著各家相繼跟進，竹葉形魚板已成為仙台魚板的一大特色。\n\n仙台站內 2 樓的阿部蒲鉾店有提供烤魚板體驗，現烤的魚板香氣十足。此外，炸葫蘆（ひょうたん揚げ）是這家店的新產品之一，將魚漿以厚厚的麵衣裹起後炸成葫蘆形狀，經油炸後成為仙台市民相當喜愛的小吃。葫蘆裡還藏著一個秘密，如果吃到的炸葫蘆串竹籤裡印有「当たり」（中獎）字樣的話，店家可以再免費贈送你一支炸葫蘆喔。"
+      }
     ],
     souvenirs: [
-      { name: "牛舌相關伴手禮", mapLink: "",                                         description: "（placeholder）牛舌仙貝、真空包、香脆零食。" },
-      { name: "仙台車站伴手禮", mapLink: "https://maps.google.com/?q=仙台車站+伴手禮", description: "（placeholder）離仙台前可一次收齊。" },
-      { name: "其他 placeholder", mapLink: "",                                      description: "（placeholder）毛豆點心、萩の月等。" }
+      {
+        name: "魚板（笹かまぼこ）",
+        mapLink: "https://maps.google.com/?q=阿部蒲鉾店+仙台駅",
+        description: "仙台魚板以白肉魚製作，為竹葉造型，與其他地區略有不同。竹葉魚板的起源，最早是在 1935 年由當地魚板老字號阿部蒲鉾店開始製造，典故則是來自伊達藩主伊達政宗家徽中的竹葉而來，如今各家相繼跟進，竹葉形魚板已成為仙台魚板的一大特色。\n\n仙台站內 2 樓的阿部蒲鉾店有提供烤魚板體驗，現烤的魚板香氣十足。此外，炸葫蘆（ひょうたん揚げ）是這家店的新產品之一，將魚漿以厚厚的麵衣裹起後炸成葫蘆形狀，經油炸後成為仙台市民相當喜愛的小吃。葫蘆裡還藏著一個祕密，如果吃到的炸葫蘆串竹籤裡印有「当たり」（中獎）字樣的話，店家可以再免費贈送你一支炸葫蘆。"
+      },
+      {
+        name: "仙台麩：燉煮、湯品、熱炒萬用食材",
+        mapLink: "https://maps.google.com/?q=仙台麩+宮城",
+        description: "雖然商品名稱寫著仙台，不過其實是整個宮城縣長年熱銷的食品。「麩」是以麩質蛋白為主原料的加工食品，仙台麩經過油炸，可與蔬菜一起燉煮，或當作味噌湯的食材，用途廣泛，常見於一般家庭料理。\n\n在麩的發祥地宮城縣登米市，有些店家會在煮得甜甜鹹鹹的油麩中加入生雞蛋煮到半熟，鋪在白飯上做成蓋飯「油麩丼」，甚至可以做成像法國吐司般，吃甜的也一樣對味。"
+      },
+      {
+        name: "大久保花林糖",
+        mapLink: "https://maps.google.com/?q=岩出山+おおくぼのかりんとう",
+        description: "日本傳統點心花林糖（かりんとう）是將小麥麵團油炸後再裹上黑糖，通常甜度偏高。岩出山名產大久保花林糖（岩出山名產おおくぼのかりんとう）走的是比較不甜的清爽路線。"
+      },
+      {
+        name: "白石溫麵",
+        mapLink: "https://maps.google.com/?q=白石温麺+白石市",
+        description: "宮城縣南部白石市生產的「白石溫麵」，類似素麵，長度僅約 9 公分的迷你麵條，滑順好入口，且原料不使用油類，吃起來也較清爽。\n\n白石溫麵的料理方式跟蕎麥麵相同，等熱水沸騰後下鍋，再接著用冷水沖涼，日本人通常會沾著鰹魚露吃，或是搭配各種蔬菜等食材煮成湯麵也很美味。"
+      },
+      {
+        name: "登米高湯包",
+        mapLink: "https://maps.google.com/?q=登米+高湯包",
+        description: "內含柴魚、潤目鰯魚乾、香菇、昆布等嚴選 5 種日本國產素材製成，並將粉末精華裝進茶包袋裡面。"
+      },
+      {
+        name: "海苔烏龍麵",
+        mapLink: "https://maps.google.com/?q=海苔烏龍麵+東松島",
+        description: "宮城縣東松島為知名的海苔產地，海苔品質優異，在日本國內舉辦的評定會中榮獲多次冠軍。\n\n海苔烏龍麵選用 2 種國產小麥麵粉與海苔粉末、鹽巴揉成麵條，富有彈性並散發陣陣海苔清香。日本的烏龍麵大多都是白色，海苔烏龍麵因為添加海苔，顏色偏黑，長得有點像蕎麥麵。\n\n想要海苔味道吃起來重一點的話，建議將煮好的麵條放入冷水中冰鎮，像「冷烏龍麵（ざるうどん）」一樣沾魚露吃。"
+      }
     ],
     extraNotes: [
-      "地底之森 / 仙台城保留彈性安排",
-      "長輩行走時間較長時，安排 1–2 次咖啡休息",
-      "午晚餐牛舌盡量排不同店比較口感"
+      "Day 2 以松島海岸散步與輕鬆移動為主",
+      "福浦橋與下午回仙台後行程都保留彈性",
+      "若中午在松島吃得較飽，晚餐可視體力改吃牛舌、居酒屋或簡單收尾"
     ]
   },
 
@@ -1602,8 +1818,16 @@ function renderDayPanels(day) {
     </div>
   `;
 
+  const souvenirNoteHTML = day.souvenirNote
+    ? `<div class="souvenir-note">
+         <span class="souvenir-note__label">WHERE TO BUY</span>
+         ${escapeHTML(day.souvenirNote)}
+       </div>`
+    : "";
+
   const souvenirHTML = `
     <div class="day-panel" data-panel="souvenir" hidden>
+      ${souvenirNoteHTML}
       <div class="souvenir-list">
         ${(day.souvenirs || []).map(renderSouvenir).join("")}
       </div>
@@ -1657,9 +1881,16 @@ function renderTripCard(item, idx) {
   const typeKey = item.type || "fixed";
   const badge = `<span class="badge ${TYPE_CLASS[typeKey] || TYPE_CLASS.fixed}">${TYPE_LABEL[typeKey] || "固定"}</span>`;
   const seq = String((idx || 0) + 1).padStart(2, "0");
-  const timeEl = item.time
-    ? `<div class="trip-card__time">${escapeHTML(item.time)}</div>`
-    : "";
+
+  // 左側時間欄：若有明確時間就顯示時間；若沒有則以「—」淡色占位，
+  // 提示使用者此筆尚未設定時段（可在資料中改為「早上 / 中餐 / 下午 / 晚餐 / 抵達後」等相對標籤）
+  const rawTime = (item.time || "").trim();
+  const hasTime = rawTime.length > 0;
+  const timeColClass = hasTime
+    ? "trip-card__time-col"
+    : "trip-card__time-col trip-card__time-col--empty";
+  const timeDisplay = hasTime ? escapeHTML(rawTime) : "—";
+
   const foodsJson = JSON.stringify(item.foods || []);
 
   /* 地點名稱本身也能點擊開 Google Maps */
@@ -1679,20 +1910,23 @@ function renderTripCard(item, idx) {
     : "";
 
   /*
-    閱讀順序：序號 → 時間 → 地點 → 描述 → 注意事項 → 行動按鈕
-    類型徽章 (固定 / 彈性 / 備案) 移到右上角，視覺上次要
+    雙欄時間軸結構：
+      左側 = 時間欄 (序號 + 時間／時段)
+      右側 = 內容卡 (地點 / 描述 / 注意事項 / 行動按鈕；徽章絕對定位於右上)
   */
   return `
     <article class="trip-card">
-      <div class="trip-card__topline">
+      <div class="${timeColClass}">
         <span class="trip-card__seq">${seq}</span>
-        ${badge}
+        <span class="trip-card__time">${timeDisplay}</span>
       </div>
-      ${timeEl}
-      <h4 class="trip-card__name">${placeHTML}</h4>
-      ${item.description ? `<p class="trip-card__desc">${escapeHTML(item.description)}</p>` : ""}
-      ${item.note ? `<p class="trip-card__note">${escapeHTML(item.note)}</p>` : ""}
-      ${(mapBtn || foodBtn) ? `<div class="trip-card__actions">${mapBtn}${foodBtn}</div>` : ""}
+      <div class="trip-card__content">
+        ${badge}
+        <h4 class="trip-card__name">${placeHTML}</h4>
+        ${item.description ? `<p class="trip-card__desc">${escapeHTML(item.description)}</p>` : ""}
+        ${item.note ? `<p class="trip-card__note">${escapeHTML(item.note)}</p>` : ""}
+        ${(mapBtn || foodBtn) ? `<div class="trip-card__actions">${mapBtn}${foodBtn}</div>` : ""}
+      </div>
     </article>
   `;
 }
@@ -1707,12 +1941,32 @@ function renderIntroCard(card) {
     ? `<a class="place-link" href="${escapeHTML(card.mapLink)}" target="_blank" rel="noopener">${escapeHTML(card.title)}</a>`
     : escapeHTML(card.title);
 
+  let descHTML = escapeHTML(card.text || "");
+  if (Array.isArray(card.links) && card.links.length) {
+    const sorted = [...card.links]
+      .filter(l => l && l.name && l.url)
+      .sort((a, b) => b.name.length - a.name.length);
+    const tokens = [];
+    sorted.forEach((link, i) => {
+      const token = `\u0000LINK_${i}\u0000`;
+      const safeName = escapeHTML(link.name);
+      const anchor = `<a class="place-link" href="${escapeHTML(link.url)}" target="_blank" rel="noopener">${safeName}</a>`;
+      if (descHTML.indexOf(safeName) !== -1) {
+        descHTML = descHTML.split(safeName).join(token);
+        tokens.push({ token, anchor });
+      }
+    });
+    tokens.forEach(({ token, anchor }) => {
+      descHTML = descHTML.split(token).join(anchor);
+    });
+  }
+
   return `
     <article class="intro-card">
       ${imgTag}
       <div class="intro-card__body">
         <h4 class="intro-card__name">${titleHTML}</h4>
-        <p class="intro-card__desc">${escapeHTML(card.text || "")}</p>
+        <p class="intro-card__desc">${descHTML}</p>
       </div>
     </article>
   `;
